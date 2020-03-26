@@ -1,0 +1,355 @@
+<div class="container">
+  <app-nav-Adminmenu></app-nav-Adminmenu>
+  <div class="row">
+  <!-- <div class="panel panel-default">
+
+    <div class="panel-body"> -->
+    
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading" div style="text-align:center;font-weight:bold">Employee</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-2"><span class="material-icons" style="font-size:48px;">group</span></div>
+                <div class="col-md-10"><span style="font-size:30px;vertical-align:middle;cursor: pointer;"
+                    (click)="GetCandidateList()">{{TotalCandidates}} </span></div>
+
+              </div>
+
+              <br />
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="btn btn-success" [routerLink]="'/candidate'">Manage Employee </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+
+          <div class="panel panel-primary">
+            <div class="panel-heading" div style="text-align:center;font-weight:bold">Question Set</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-2"><span class="material-icons" style="font-size:48px;">list_alt</span></div>
+                <div class="col-md-10"><span style="font-size:30px;vertical-align:middle;cursor: pointer;"
+                    (click)="GetQuestionSetList()"> {{TotalQuestions}}</span></div>
+
+              </div>
+
+              <br />
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="btn btn-success" [routerLink]="'/QuestionSet'">Manage Question Set </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading" div style="text-align:center;font-weight:bold">QuickCode</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-2"><span class="material-icons" style="font-size:48px;">format_list_numbered</span>
+                </div>
+                <div class="col-md-10"><span style="font-size:30px;vertical-align:middle;cursor: pointer;"
+                    (click)="GetQuickCodeList()">{{TotalQucikCode}}</span></div>
+
+              </div>
+
+              <br />
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="btn btn-success" [routerLink]="'/QuickCode'">Manage QuickCode </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      <!-- </div>
+    </div> -->
+  </div>
+
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+
+        <div class="col-md-1" >
+
+          <button type="button" id="btnGenerateReport" style="width:180px;" (click)="onGenerateReport()"
+            class="btn btn-dark btnGenerateReport">Generate Test Report</button></div>
+
+        <div class="col-md-9"></div>
+
+        <div class="col-md-2" style="padding-right: 5px;text-align:right;">
+          <button type="test" id="btnDownload" (click)="downloadCSV()" style="width:90px;"
+            class="btn btn-dark">Download</button>
+          <!-- <button (click)="downloadCSV()" class="btn-default">Download CSV</button> -->
+        </div>
+        <!-- <form  [formGroup]="UserSearchForm">
+
+    <div class="col-md-1" style="vertical-align: middle;">Search</div>
+    <div class="col-md-3"> <input type="text" class="form-control" formControlName="SearchValue"  (change)="onUserSearch(this)" ></div>
+  </form> -->
+
+
+      </div>
+    </div>
+  </div>
+  <div *ngIf="Pagemode=='ModeCandidates'">
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+
+          <div class="table-responsive">
+
+            <table class="table table-striped table-sm hover" style="width:100%">
+              <thead class="bg-primary">
+                <tr>
+
+                  <th>#ID</th>
+                  <th>FirstName</th>
+                  <th>LastName</th>
+                  <th class="hidden">Password</th>
+                  <th>User Group</th>
+                  <th>Email</th>
+                  <th>Contact No</th>
+                  <th>Department</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  *ngFor="let item of UserTotalArray | paginate:{itemsPerPage: pagecount, currentPage:p} let i = index ">
+
+                  <td>
+                    <span>{{item.Id}}</span>
+                    <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.Id}}" />-->
+                  </td>
+                  <td>
+                    <span>{{item.FirstName}}</span>
+
+
+                    <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.FirstName}}" />-->
+                  </td>
+
+
+                  <td>
+                    <span>{{item.LastName}}</span>
+
+
+                    <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.FirstName}}" />-->
+                  </td>
+                  <td class="hidden">
+                    <span>{{item.Password}}</span>
+
+
+                    <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.FirstName}}" />-->
+                  </td>
+                  <td>
+                    <span>{{item.UserGroup}}</span>
+                    <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.UserGroup}}" />-->
+                  </td>
+
+
+
+
+                  <td>
+                    <span>{{item.UserEmail}}</span>
+                    <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.UserEmail}}" />-->
+                  </td>
+
+                  <td>
+                    <span>{{item.ContactNo}}</span>
+                    <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.ContactNo}}" />-->
+                  </td>
+
+
+
+                  <td>
+                    <span>{{item.UserSection}}</span>
+                    <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.UserGroup}}" />-->
+                  </td>
+
+
+
+
+                  <td>
+                    <span>{{item.Status}}</span>
+                    <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.UserGroup}}" />-->
+                  </td>
+
+
+
+
+
+
+
+
+                </tr>
+                <tr>
+                  <td colspan="12">
+                    <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="Pagemode=='ModeQuestionSet'">
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+
+          <div class="table-responsive">
+
+            <table class="table table-striped table-sm hover" style="width:100%">
+              <thead class="bg-primary">
+                <tr>
+
+                  <th class="hidden">#SetId</th>
+                  <th>Seq No</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                  <th>Created By</th>
+                  <th>Created Date</th>
+                  <th>Modified By</th>
+                  <th>Modified Date</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  *ngFor="let item of QuestionSetTotalArray | paginate:{itemsPerPage: pagecount, currentPage:p} let i = index">
+
+
+                  <td class="hidden">
+                    <span>{{item.SetID}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.SeqNo}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.SetCategory}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.Status}}</span>
+                  </td>
+
+                  <td>
+                    <span>{{item.CreatedBy}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.CreatedDate}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.ModifiedBy}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.ModifiedDate}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="12">
+                    <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="Pagemode=='ModeQuickCode'">
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+
+          <div class="table-responsive">
+
+            <table class="table table-striped table-sm hover" style="width:100%">
+              <thead class="bg-primary">
+                <tr>
+
+                  <th class="hidden">#RecID</th>
+                  <th>CodeType</th>
+                  <th>CodeName</th>
+                  <th>CodeDesc</th>
+                  <th>DisplaySeq</th>
+                  <th>Status</th>
+                  <th>Remarks</th>
+                  <th>Created By</th>
+                  <th>Created Date</th>
+                  <th>Modified By</th>
+                  <th>Modified Date</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  *ngFor="let item of QuickCodeTotalArray | paginate:{itemsPerPage: pagecount, currentPage:p} let i = index">
+
+
+                  <td class="hidden">
+                    <span>{{item.RecID}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.CodeType}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.CodeName}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.CodeDesc}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.DisplaySeq}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.Status}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.Remarks}}</span>
+                  </td>
+
+                  <td>
+                    <span>{{item.CreatedBy}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.CreatedDate}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.ModifiedBy}}</span>
+                  </td>
+                  <td>
+                    <span>{{item.ModifiedDate}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="12">
+                    <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

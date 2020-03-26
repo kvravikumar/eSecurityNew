@@ -1,0 +1,230 @@
+<app-nav-Adminmenu></app-nav-Adminmenu>
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-8"><span class="PageTitle">{{PageTitle}}</span></div>
+            <div class="col-md-4" style="text-align: right;"><span style="color: blue;">{{SuccessMassage}}</span><span
+                    style="color:red;">{{errorMessage}}</span></div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form [formGroup]="UserForm" (ngSubmit)="onFormSubmit()">
+                    <div class="row">
+
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="CodeType">Code Type</label>
+                                    <input type="text" class="form-control" id="CodeType"
+                                        [ngClass]="{ 'is-invalid': submitted && f.CodeType.errors }"
+                                        formControlName="CodeType" placeholder="Code Type">
+                                    <div *ngIf="submitted && f.CodeType.errors" class="invalid-feedback">
+                                        <div *ngIf="f.CodeType.errors.required" style="color:red">CodeType is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="CodeName">Code Name</label>
+                                    <input type="text" class="form-control" id="CodeName"
+                                        [ngClass]="{ 'is-invalid': submitted && f.CodeName.errors }"
+                                        formControlName="CodeName" placeholder="Code Name">
+                                    <div *ngIf="submitted && f.CodeName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.CodeName.errors.required" style="color:red">CodeName is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="CodeDesc">Code Desc</label>
+                                    <input type="text" class="form-control" id="CodeDesc"
+                                        [ngClass]="{ 'is-invalid': submitted && f.CodeDesc.errors }"
+                                        formControlName="CodeDesc" placeholder="Code Desc">
+                                    <div *ngIf="submitted && f.CodeDesc.errors" class="invalid-feedback">
+                                        <div *ngIf="f.CodeDesc.errors.required" style="color:red">Code Desc is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="DisplaySeq">Display Seq</label>
+                                    <input type="text" class="form-control" id="DisplaySeq"
+                                        [ngClass]="{ 'is-invalid': submitted && f.DisplaySeq.errors }"
+                                        formControlName="DisplaySeq" placeholder="Display Seq">
+                                    <div *ngIf="submitted && f.DisplaySeq.errors" class="invalid-feedback">
+                                        <div *ngIf="f.DisplaySeq.errors.required" style="color:red">Display Seq is
+                                            required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="Status">Status</label>
+                                    <select id="Status" formControlName="Status" 
+                                        [ngClass]="{ 'is-invalid': submitted && f.Status.errors }" class="form-control"
+                                       >
+                                        <option>Select Status.. </option>
+                                        <option *ngFor="let Status of QuestionSetStatus" value="{{Status.value}}">
+                                            {{Status.name}} </option>
+                                    </select>
+                                 
+                                    <div *ngIf="submitted && f.Status.errors" class="invalid-feedback">
+                                        <div *ngIf="f.Status.errors.required" style="color:red">Status is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="Remarks">Remarks</label>
+                                    <textarea class="form-control" id="Remarks" formControlName="Remarks"
+                                        placeholder="Remarks"></textarea>
+
+                                </div>
+
+
+                                <div class="form-group col-md-1" style="padding-top:22px;">
+                                    <button type="submit" id="btnCandidateSave" style="width:90px;"
+                                        class="btn btn-primary btnCandidateSave">Save</button>
+                                </div>
+                                <div class="form-group col-md-1" style="padding-top:22px;">
+                                    <button type="test" id="btnBack" (click)="onBack()" style="width:90px;"
+                                        class="btn btn-warning btnBack">Home</button>
+                                </div>
+                                <div class="form-group col-md-1" style="padding-top:22px;">
+                                    <button type="test" id="btnDownload" (click)="downloadCSV()" style="width:90px;"
+                                        class="btn btn-dark">Download</button>
+                                    <!-- <button (click)="downloadCSV()" class="btn-default">Download CSV</button> -->
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="row">
+
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8"></div>
+                                <div class="col-md-2"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8"><span class="PageTitle">QuickCode Lists</span></div>
+            <div class="col-md-4"></div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row" *ngIf="mode=='new'">
+                    <form  [formGroup]="QuickCodeSearchForm">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-1">Search</div>
+                    <div class="col-md-3"> <input type="text" class="form-control" (keyup)="onQuickCOdeSearch()" formControlName="SearchValue" ></div>
+                  </form><br><br>
+                  </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+
+                            <div class="table-responsive">
+
+                                <table class="table table-striped table-sm hover" style="width:100%">
+                                    <thead class="bg-primary">
+                                        <tr>
+                                            <th></th>
+                                           
+                                            <th></th>
+                                            <!--<th width="10%"></th>-->
+                                            <th class="hidden">#RecID</th>
+                                            <th>CodeType</th>
+                                            <th>CodeName</th>
+                                            <th>CodeDesc</th>
+                                            <th>DisplaySeq</th>
+                                            <th>Status</th>
+                                            <th>Remarks</th>
+                                            <th>Created By</th>
+                                            <th>Created Date</th>
+                                            <th>Modified By</th>
+                                            <th>Modified Date</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr
+                                            *ngFor="let item of ItemsArray | paginate:{itemsPerPage: pagecount, currentPage:p} let i = index">
+                                            <td>
+                                                <button [disabled]="item.inedit" class="btn btn-warning"
+                                                    (click)="onEditClick($event, ((p-1)*pagecount)+i)"
+                                                    data-toggle="modal" data-target="#editModal"><span
+                                                        class="fa fa-edit"></span></button>
+
+                                            </td>
+                                            <td>
+                                                <!--<div class="col-md-6"><button  style="font-size: 5px;" class="btn btn-success " (click)="onSaveClick($event, i)" data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-ok"></span></button></div>-->
+                                                <button [disabled]="!item.inedit" class="btn btn-danger"
+                                                    (click)="onCancelClick(((p-1)*pagecount)+i)" data-toggle="modal"
+                                                    data-target="#editModal"><span class="fa fa-times"></span></button>
+
+                                            </td>
+                                          
+                                            <td class="hidden">
+                                                <span>{{item.RecID}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{item.CodeType}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{item.CodeName}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{item.CodeDesc}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{item.DisplaySeq}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{item.Status}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{item.Remarks}}</span>
+                                            </td>
+
+                                            <td>
+                                                <span>{{item.CreatedBy}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{item.CreatedDate}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{item.ModifiedBy}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{item.ModifiedDate}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="12" *ngIf="mode=='new'">
+                                                <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>

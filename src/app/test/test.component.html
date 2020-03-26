@@ -1,0 +1,204 @@
+<app-nav-Adminmenu></app-nav-Adminmenu>
+<div class="row" style="text-align: center;">
+
+  <div class="col-md-12">
+    <div *ngIf="warningMessage">
+      <span class="AlertMessage">Test will not submit if question is not fully completed. Please
+        finish the test on time
+      </span>
+    </div>
+  </div>
+</div>
+<div *ngIf="mode!='result'">
+  <div class="row">
+    <div class="col-md-6" style="text-align: left;color:#4F6CB2;">
+      <h2>Question {{pager.index + 1}} of {{pager.count}}.</h2>
+
+    </div>
+    <div class="col-md-6">
+
+      <!-- <div *ngIf="config.duration" class="badge badge-info float-right"><h1>Time: {{ellapsedTime}} / {{duration}}</h1></div> -->
+      <div *ngIf="config.duration" style="text-align: right;color:#4F6CB2;">
+        <h2>Time: {{ellapsedTime}} / {{duration}}</h2>
+      </div>
+    </div>
+    <!-- <div class="col-6 text-right">
+    Select Quiz:
+    <select [(ngModel)]="quizName" (change)="loadQuiz(quizName)">
+      <option *ngFor="let quiz of quizes" [value]="quiz.id">{{quiz.name}}</option>
+    </select>
+  </div> -->
+  </div>
+</div>
+<div id="quiz">
+  <!-- <h2 class="text-center font-weight-normal">{{quiz.name}}</h2> -->
+  <hr />
+
+  <div *ngIf="mode=='quiz' && quiz">
+    <div *ngFor="let question of filteredQuestions;">
+
+      <h4 class="font-weight-normal">
+        {{pager.index + 1}}.
+        <span [innerHTML]="question.Question" style="text-indent: 50px;line-height: 1.8em;"></span>
+      </h4>
+      <div class="row text-left options">
+
+        <div class="col-6" style="padding-left:50px;" *ngFor="let option of question.options">
+
+          <input type="radio" id="{{option.AnswerID}}" name="{{option.QId}}" (change)="onSelect(question, option);"
+            value="{{option.AnswerID}}" [(ngModel)]="option.selected">&nbsp;
+          <label for="{{option.AnswerID}}">{{option.Answer}}</label><br>
+
+          <!-- <label class="font-weight-normal" [attr.for]="option.QId">
+              <input id="{{option.AnswerID}}" name="{{option.QId}}" type="radio" [(ngModel)]="option.selected"
+                (change)="onSelect(question, option);" /> {{option.Answer}}
+            </label> -->
+        </div>
+
+      </div>
+    </div>
+    <hr />
+    <div>
+      <div class="row">
+
+        <div class="col-md-1"><button style="width:90px;" *ngIf="CheckPreview=='Yes'" class="btn btn-info"
+            (click)="mode = 'review'">Preview</button></div>
+        <div class="col-md-11 text-center"> 
+          <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(0);"  [disabled]="FirstRecord">First</button>
+          <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.index - 1);" [disabled]="FirstRecord">Prev</button>
+          <button class="btn btn-default" (click)="goTo(pager.index + 1);" [disabled]="LastRecord" >Next</button>
+          <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);" [disabled]="LastRecord" >Last</button></div>
+      </div>
+      <!-- <button class="btn btn-default" [disabled]="isFirstDisabled" *ngIf="config.allowBack"
+        (click)="goTo(0);">First</button>
+      <button class="btn btn-default" [disabled]="isNextDisabled" *ngIf="config.allowBack"
+        (click)="goTo(pager.index - 1);">Prev</button>
+      <button class="btn btn-primary" [disabled]="isPreviouDisabled" (click)="goTo(pager.index + 1);">Next</button>
+      <button class="btn btn-default" [disabled]="isLastDisabled" *ngIf="config.allowBack"
+        (click)="goTo(pager.count - 1);">Last</button> -->
+
+
+      <!--<pagination *ngIf="config.showPager" direction-links="false" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>-->
+    </div>
+  </div>
+
+  <div class="row" *ngIf="mode=='review'">
+    <!-- <div class="col-4 cursor-pointer" *ngFor="let question of quiz.questions; let index = index;">
+      <div (click)="goTo(index)" class="p-3 mb-2 {{ isAnswered(question) == 'Answered'? 'bg-info': 'bg-warning' }}">{{index + 1}}. {{ isAnswered(question) }}</div>
+    </div> -->
+
+
+    <div *ngFor="let question of quiz.questions; let index = index">
+      <div class="result-question p-3 mb-2 {{ isSelected(question) == 'Answered'? 'text-success': 'text-danger' }}">
+
+        <div class="row" style="padding-left:20px;">
+        
+          <div>
+            <h5 class="">{{index + 1}}. {{question.Question}}</h5>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-6" style="padding-left:50px;" *ngFor="let Option of question.options">
+            <div *ngIf="Option.selected">
+              <input id="{{Option.AnswerID}}" type="checkbox" disabled="disabled" [(ngModel)]="Option.selected" />
+
+              <b>{{Option.Answer}}</b>
+            </div>
+            <div *ngIf="!Option.selected">
+              <input id="{{Option.AnswerID}}" type="checkbox" disabled="disabled" [(ngModel)]="Option.selected" />
+              {{Option.Answer}}
+            </div>
+          </div>
+        </div>
+        <!--<div class="p-1 m-2 alert {{ isCorrect(question) == 'correct'? 'alert-success': 'alert-danger'}}">Your answer is {{isCorrect(question)}}.</div>-->
+      </div>
+    </div>
+  </div>
+  <div class="result" *ngIf="mode=='result'">
+    <!-- <div class="row">
+      <div class="col-md-12 alert alert-info text-center">Test Result <br> </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 text-right" style="white-space: nowrap;">
+        <h3> Total question attended : {{this.testResult[0].totalquestions}}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 text-right" style="white-space: nowrap;">
+        <h3>Total number of correct answers : {{this.testResult[0].totalcorrectquestions}}</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2 text-right" style="white-space: nowrap;">
+        <h3>Test Result : {{this.testResult[0].TestResult=="F"?"Fail":"Pass"}}</h3>
+      </div>
+    </div> -->
+
+    <div class="row">
+      <div class="col-md-12 alert alert-info text-center"> SELF ASSESSMENT TEST RESULT </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" style="text-align:center;font-size:20px;">
+        <!-- {{testResult[0].TestResult=="F"?"Your Result : FAILED.":"Your Result : PASSED."}} -->
+
+        Your Result :<span style="color: red;">{{FailMessage}}</span><span style="color: green;">{{PassMessage}}</span>
+
+
+      </div>
+
+    </div>
+    <div class="row" *ngIf="testResult!=null">
+      <div class="col-md-12" style="text-align:center;font-size:20px;"><br>
+        Your Score: <b> {{ testResult[0].totalcorrectquestions}}/{{testResult[0].totalquestions}}</b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div style="text-indent: 50px;">
+          <br>
+
+          We will inform you of your participation in further training on e-Security as it develops in ST Logistics.
+          <br><br>
+          Please remember to consult either your immediate supervisor or your Security Officer/Admin Dept in the event
+          of any Security related query.
+          In matters of urgency, you should notify the Security Officer/Admin Dept immediately.
+          <br><br>
+          Contact Details of Admin Department:
+          {{getAdminContact}}
+          <br><br>
+          If you wish to review your results kindly contact
+          {{getAdminContact}}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5"></div>
+      <div class="col-md-2"><br><button style="text-align: center;" *ngIf="mode=='result'" class="btn btn-warning"
+          (click)="onBack()">Dashborad</button></div>
+    </div>
+    <div class="col-md-5"></div>
+
+  </div>
+  <hr />
+  <div *ngIf="mode!='result'">
+    <div class="row text-center">
+      <div class="col-md-1">
+        <!-- <button style="width:90px;" class="btn btn-danger" (click)="onBack()">Cancel</button> -->
+      </div>
+
+      <div class="col-md-1" *ngIf="mode=='review'"><button style="width:90px;" *ngIf="mode=='review'"
+          class="btn btn-warning" (click)="mode = 'quiz'">Back</button></div>
+      <div class="col-md-1" *ngIf="mode=='review'"><button style="width:90px;" *ngIf="mode=='review'"
+          class="btn btn-primary text-center" (click)="onSubmit();">Submit</button></div>
+
+    </div>
+
+
+
+  </div>
+
+
+</div>

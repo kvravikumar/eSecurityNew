@@ -1,0 +1,297 @@
+<app-nav-Adminmenu></app-nav-Adminmenu>
+
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6"><span class="PageTitle">{{PageTitle}}</span></div>
+      <div class="col-md-6" style="text-align: right;"><span style="color: blue;">{{SuccessMassage}}</span><span
+          style="color:red;">{{errorMessage}}</span></div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form [formGroup]="UserForm" (ngSubmit)="onFormSubmit()">
+          <div class="row">
+
+
+            <div class="col-md-12">
+              <div class="row">
+                <div class="form-group col-md-3">
+                  <label for="UserID">Employee ID</label>
+                  <!-- <input type="text" class="form-control" id="Id" formControlName="Id"  placeholder="User ID"> -->
+                  <input type="text" class="form-control" id="Id" [ngClass]="{ 'is-invalid': submitted && f.Id.errors }"
+                    formControlName="Id" placeholder="Employee ID">
+                  <div *ngIf="submitted && f.Id.errors" class="invalid-feedback">
+                    <div *ngIf="f.Id.errors.required" style="color:red">Employee ID is required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="Password">Password</label>
+                  <!-- <input type="password" class="form-control" formControlName="Password"  placeholder="Password"> -->
+                  <input type="password" class="form-control" id="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" formControlName="Password" placeholder="Password">
+                  <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
+                    <div *ngIf="f.Password.errors.required" style="color:red">Password is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                  <label for="FirstName">First Name</label>
+                  <!-- <input type="text" class="form-control" formControlName="FirstName"  placeholder="First Name"> -->
+                  <input type="text" class="form-control" id="FirstName"
+                    [ngClass]="{ 'is-invalid': submitted && f.FirstName.errors }" formControlName="FirstName"
+                    placeholder="First Name">
+                  <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
+                    <div *ngIf="f.FirstName.errors.required" style="color:red">First Name is required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="LastName">Last Name</label>
+                  <input type="text" class="form-control" formControlName="LastName" placeholder="Last Name">
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-3">
+                  <label for="UserEmail">Email</label>
+                  <!-- <input type="email" class="form-control" formControlName="UserEmail"  placeholder="Email"> -->
+                  <input type="text" class="form-control" id="UserEmail"
+                    [ngClass]="{ 'is-invalid': submitted && f.UserEmail.errors }" formControlName="UserEmail"
+                    placeholder="Email">
+                  <div *ngIf="submitted && f.UserEmail.errors" class="invalid-feedback">
+                    <div *ngIf="f.UserEmail.errors.required" style="color:red">Email is required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="UserGroup">User Group</label>
+                  <select id="UserGroup" formControlName="UserGroup" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.UserGroup.errors }">
+                    <option selected>Select User Group.. </option>
+                    <option *ngFor="let group of CandidateUserGroup">{{group.name}} </option>
+                  </select>
+
+                  <div *ngIf="submitted && f.UserGroup.errors" class="invalid-feedback">
+                    <div *ngIf="f.UserGroup.errors.required" style="color:red">User Group is required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="UserSection">Department</label>
+                  <!-- <input type="text" class="form-control" formControlName="UserSection" value="{{UserForm.UserSection}}" placeholder="User Section"> -->
+                  <select id="UserSection" formControlName="UserSection" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.UserSection.errors }">
+                    <option selected>Select Department.. </option>
+                    <option *ngFor="let group of UserSectionArray">{{group.CodeName}} </option>
+                  </select>
+
+                  <div *ngIf="submitted && f.UserSection.errors" class="invalid-feedback">
+                    <div *ngIf="f.UserSection.errors.required" style="color:red">Department is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-3">
+                  <label for="ContactNo">Contact No</label>
+                  <!-- <input type="text" class="form-control" formControlName="ContactNo"  placeholder="ContactNo"> -->
+                  <input type="text" class="form-control" id="ContactNo"
+                    [ngClass]="{ 'is-invalid': submitted && f.ContactNo.errors }" formControlName="ContactNo"
+                    placeholder="Contact No">
+                  <div *ngIf="submitted && f.ContactNo.errors" class="invalid-feedback">
+                    <div *ngIf="f.ContactNo.errors.required" style="color:red">Contact No is required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="Status">Status</label>
+                  <select id="Status" formControlName="Status" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.Status.errors }">
+                    <option>Select Status.. </option>
+                    <option *ngFor="let Stat of CandidateStatus" value="{{Stat.value}}">{{Stat.name}} </option>
+                  </select>
+
+                  <div *ngIf="submitted && f.Status.errors" class="invalid-feedback">
+                    <div *ngIf="f.Status.errors.required" style="color:red">Status is required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-1" style="padding-top:22px;">
+                  <button type="submit" id="btnCandidateSave" style="width:90px;"
+                    class="btn btn-primary btnCandidateSave">Save</button>
+                </div>
+                <div class="form-group col-md-1" *ngIf="mode=='edit'" style="padding-top:22px;">
+                  <button type="button" id="btnNominate" style="width:90px;" (click)="onNominate()"
+                    [disabled]="bNominate"
+                    class="btn btn-success btnNominate">Nominate</button>
+                </div>
+                <!-- <div class="form-group col-md-1" *ngIf="mode=='edit'" style="padding-top:22px;"> 
+                  <button type="submit" id="btnDelete" style="width:90px;"  (click)="onDelete()" class="btn btn-danger">Delete</button>
+                </div> -->
+                <div class="form-group col-md-1" style="padding-top:22px;">
+                  <button type="test" id="btnBack" (click)="onBack()" style="width:90px;"
+                    class="btn btn-warning btnBack">Home</button>
+                </div>
+                <div class="form-group col-md-1" style="padding-top:22px;">
+                  <button type="test" id="btnDownload" (click)="downloadCSV($event)" style="width:90px;" class="btn btn-dark btnDownload">Download</button>
+                  <!-- <button (click)="downloadCSV()" class="btn-default">Download CSV</button> -->
+                </div>
+
+
+              </div>
+
+
+              <div class="row">
+
+                <div class="col-md-2"></div>
+                <div class="col-md-8"></div>
+                <div class="col-md-2"></div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8"><span class="PageTitle">Employee Lists</span></div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row" *ngIf="mode=='New'">
+          <form [formGroup]="UserSearchForm">
+            <div class="col-md-8"></div>
+            <div class="col-md-1">Search</div>
+            <div class="col-md-3"> <input type="text" class="form-control" formControlName="SearchValue"
+                (keyup)="onUserSearch()"></div>
+          </form>
+        </div>
+        <div class="row"><br>
+          <div class="col-md-12">
+            <div>
+
+              <div class="table-responsive">
+
+                <table class="table table-striped table-sm hover" style="width:100%">
+                  <thead class="bg-primary">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <!--<th width="10%"></th>-->
+                      <th>Employee ID</th>
+                      <th>FirstName</th>
+                      <th>LastName</th>
+                      <th class="hidden">Password</th>
+                      <th>User Group</th>
+                      <th>Email</th>
+                      <th>Contact No</th>
+                      <th>Department</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr
+                      *ngFor="let item of ItemsArray | paginate:{itemsPerPage: pagecount, currentPage:p} let i = index ">
+                      <td>
+                        <button [disabled]="item.inedit" class="btn btn-warning "
+                          (click)="onEditClick($event, ((p-1)*pagecount)+i)" data-toggle="modal" title="Edit"
+                          data-target="#editModal"><span class="fa fa-edit"></span></button>
+
+                      </td>
+                      <td>
+                        <!--<div class="col-md-6"><button  style="font-size: 5px;" class="btn btn-success " (click)="onSaveClick($event, i)" data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-ok"></span></button></div>-->
+                        <button [disabled]="!item.inedit" class="btn btn-danger" (click)="onCancelClick(((p-1)*pagecount)+i)"
+                          data-toggle="modal" title="Cancel Edit" data-target="#editModal"><span
+                            class="fa fa-times"></span></button>
+
+                      </td>
+
+                      <td>
+                        <span>{{item.Id}}</span>
+                        <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.Id}}" />-->
+                      </td>
+                      <td>
+                        <span>{{item.FirstName}}</span>
+
+
+                        <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.FirstName}}" />-->
+                      </td>
+
+
+                      <td>
+                        <span>{{item.LastName}}</span>
+
+
+                        <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.FirstName}}" />-->
+                      </td>
+                      <td class="hidden">
+                        <span>{{item.Password}}</span>
+
+
+                        <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.FirstName}}" />-->
+                      </td>
+                      <td>
+                        <span>{{item.UserGroup}}</span>
+                        <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.UserGroup}}" />-->
+                      </td>
+
+
+
+
+                      <td>
+                        <span>{{item.UserEmail}}</span>
+                        <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.UserEmail}}" />-->
+                      </td>
+
+                      <td>
+                        <span>{{item.ContactNo}}</span>
+                        <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.ContactNo}}" />-->
+                      </td>
+
+
+
+                      <td>
+                        <span>{{item.UserSection}}</span>
+                        <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.UserGroup}}" />-->
+                      </td>
+
+
+
+
+                      <td>
+                        <span>{{item.Status}}</span>
+                        <!--<input class="form-control" type="text" [hidden]="!item.inedit" value="{{item.UserGroup}}" />-->
+                      </td>
+
+
+
+
+
+
+
+
+                    </tr>
+                    <tr>
+                      <td colspan="12" *ngIf="mode=='New'">
+                        <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+</div>

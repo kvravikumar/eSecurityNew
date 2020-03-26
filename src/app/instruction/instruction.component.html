@@ -1,0 +1,48 @@
+<app-nav-Adminmenu></app-nav-Adminmenu>
+
+<div class="row">
+    <div class="col-md-4"><span class="PageTitle"></span></div>
+    <div class="col-md-8"><span style="color: blue;"></span><span
+        style="color:red;">{{errorMessage}}</span></div>
+  </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading" div style="text-align:center;font-weight:bold">Instructions</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12"><font color="blue">
+                       <b> * Please read these instructions carefully before taking this test.</b></font>
+                        <ul class="list-group" style="text-indent: 50px;">
+                            <li class="list-group-item" style="border: none">You have one (1) hour to complete this test which consists of 20 multiple-choice questions.</li>
+                            <li class="list-group-item" style="border: none">You may refer to your training materials(security) if necessary.</li>
+                            <li class="list-group-item" style="border: none">Please select the correct answer by check box selection.</li>
+                            <li class="list-group-item" style="border: none">There is only one correct answer to each question.</li>
+                            <li class="list-group-item" style="border: none">Please click on the ‘Submit’ button only after you have completed answering all the questions.</li>
+                            <li class="list-group-item" style="border: none">You are required to get at least fourteen (14) answers correct to pass.</li>
+                            <li class="list-group-item" style="border: none">Should you fail the test, you will receive an email to take another test.</li>
+                            <li class="list-group-item" style="border: none">You are not allowed to share the E-Security test answers with your colleagues when the other staff is taking the test.</li>
+                            <li class="list-group-item" style="border: none">Please contact Admin Department for any queries.:</li>
+                            <li class="list-group-item" style="border: none; text-indent: 50px;" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{AdminContact}}</li>
+                         
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-1">
+                        <div class="btn btn-success" (click)="OnStartTest()">Start Test </div>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="test" id="btnBack" (click)="onBack()" style="width:90px;"
+                            class="btn btn-warning btnBack">Home</button>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <!-- <button type="test" id="btnBack" (click)="onBack()" style="width:90px;" class="btn btn-danger btnBack">Cancel</button> -->
+                      </div>
+                      <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

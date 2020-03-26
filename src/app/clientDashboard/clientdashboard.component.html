@@ -1,0 +1,135 @@
+<app-nav-Adminmenu></app-nav-Adminmenu>
+
+<!-- <h2>Welcome to {{User_ID}}</h2> -->
+<div class="row">
+  <!-- <div class="col-md-4"><span class="PageTitle"></span></div> -->
+  <div class="col-md-12" style="text-align: right;"><span style="color: blue;"></span><span
+      style="color:red;">{{errorMessage}}</span></div>
+</div>
+<!-- <div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-6"> 
+
+    <select id="Report"  class="form-control" >
+     <option value="ReportSummary">Report Summary</option>
+    </select><br></div>
+    <div class="col-md-2"> 
+      <button type="button" id="btnGenerateReport" style="width:150px;"  (click)="onGenerateReport()" class="btn btn-success btnGenerateReport">Generate Report</button><br></div>
+</div> -->
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading" div style="text-align:center;font-weight:bold">Tests Attended</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-2"><span class="material-icons" style="font-size:48px;">format_list_numbered</span></div>
+          <div class="col-md-10"><span style="font-size:30px;vertical-align:middle">{{TotalTests}}</span></div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div style="text-align:right"></div>
+          </div>
+          <div class="col-md-6"></div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-md-12"> 
+            <button class="btn btn-success" (click)="onNewTest()">Take Test </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+
+    <div class="panel panel-primary">
+      <div class="panel-heading" div style="text-align:center;font-weight:bold">Training Materials</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div style="text-align:left"> <a type="button"  style="cursor:pointer;" (click)="onfiledownload()">
+              Download Training Materials
+            </a><br><br>
+            <!-- <a type="button"  style="cursor:pointer;" (click)="onfiledownload('CompetitionLawTraining.ppt')">
+              Competition Law Training
+            </a><br><br>
+            <a type="button" style="cursor:pointer;" (click)="onfiledownload('CompetitionLawFlowchart.pdf')">
+              Competition Law Flowchart
+            </a> -->
+          </div>
+          </div>
+         
+        </div>
+        <br />
+      
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+
+  </div>
+
+
+
+
+</div>
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+
+            <div class="table-responsive">
+
+              <table class="table table-striped table-sm hover"  style="width:100%">
+                <thead class="bg-primary" style="height:2px">
+                  <tr>
+                    <!-- <th></th> -->
+                    <th>Employee Name</th>
+                    <th class="hidden">TestID</th>
+                    <th>Test Date</th>
+                    <th>Result</th>
+                    <th>Retest Required</th>
+                    <th>Retest Date</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let item of clientTest | paginate:{itemsPerPage: 5, currentPage:p} let i = index ">
+                    <!-- <td>
+                      <button [disabled]="item.inedit" class="btn btn-warning" (click)="onEditClick(i)" data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-pencil"></span></button>
+
+                    </td> -->
+                    <td>
+                      <span>{{item.UserID}}</span>
+                    </td>
+                    <td class="hidden">
+                      <span>{{item.TestID}}</span>
+                    </td>
+                    <td>
+                      <span>{{item.TestDate}}</span>
+                    </td>
+                    <td>
+                      <span>{{item.TestResult}}</span>
+                    </td>
+                    <td>
+                      <span>{{item.ReTestReq}}</span>
+                    </td>
+                    <td>
+                      <span>{{item.ReTestDate}}</span>
+                    </td>
+                  </tr>
+                  <tr><td colspan="12">                    <pagination-controls (pageChange)="p=$event"></pagination-controls></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

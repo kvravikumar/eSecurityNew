@@ -1,0 +1,189 @@
+<app-nav-Adminmenu></app-nav-Adminmenu>
+
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6"><span class="PageTitle">{{PageTitle}}</span></div>
+      <div class="col-md-6" style="text-align: right;"><span style="color: blue;">{{SuccessMassage}}</span>
+        <span style="color:red;">{{errorMessage}}</span></div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form [formGroup]="UserForm" (ngSubmit)="onFormSubmit()">
+          <div class="row">
+
+
+            <div class="col-md-12">
+              <div class="row">
+                
+                <div class="form-group col-md-2">
+                  <label for="SetCategory">Category</label>
+                  <select id="SetCategory" formControlName="SetCategory" [ngClass]="{ 'is-invalid': submitted && f.SetCategory.errors }" class="form-control" value="{{UserForm.SetCategory}}">
+                    <option>Select Category.. </option>
+                    <option *ngFor="let Category of SetCategory" value="{{Category.CodeName}}">{{Category.CodeName}}</option>
+
+                  </select>
+                  <div *ngIf="submitted && f.SetCategory.errors" class="invalid-feedback">
+                    <div *ngIf="f.SetCategory.errors.required" style="color:red">SetCategory is required</div>
+                </div>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="Status">Status</label>
+                  <select id="Status" formControlName="Status" [ngClass]="{ 'is-invalid': submitted && f.Status.errors }"  class="form-control">
+                    <option>Select Status.. </option>
+                    <option *ngFor="let Status of QuestionSetStatus" value="{{Status.value}}">{{Status.name}} </option>
+                  </select>
+                  <div *ngIf="submitted && f.Status.errors" class="invalid-feedback">
+                    <div *ngIf="f.Status.errors.required" style="color:red">Status is required</div>
+                </div>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="SeqNo">Seq No</label>
+                  <input type="text" class="form-control" id="SeqNo" [ngClass]="{ 'is-invalid': submitted && f.SeqNo.errors }" formControlName="SeqNo" value="{{UserForm.SeqNo}}"
+                    placeholder="SeqNo">
+                    <div *ngIf="submitted && f.SeqNo.errors" class="invalid-feedback">
+                      <div *ngIf="f.SeqNo.errors.required" style="color:red">SeqNo is required</div>
+                  </div>
+                </div>
+                <!-- <div class="form-group col-md-2" *ngIf="1!=1">
+                  <label for="SetID">Set ID</label>
+                  <input type="text" class="form-control" id="SetID" [ngClass]="{ 'is-invalid': submitted && f.SetID.errors }" formControlName="SetID" value="{{UserForm.SetID}}"
+                    placeholder="Set ID">
+                    <div *ngIf="submitted && f.SetID.errors" class="invalid-feedback">
+                      <div *ngIf="f.SetID.errors.required" style="color:red">SetID is required</div>
+                  </div>
+                </div> -->
+
+              
+
+                <div class="form-group col-md-1" style="padding-top:22px;">
+                  <button type="submit" id="btnCandidateSave" style="width:90px;" class="btn btn-primary btnCandidateSave">Save</button>
+                </div>
+                <div class="form-group col-md-1" *ngIf="mode=='edit'" style="padding-top:22px;"> 
+                  <button type="test" id="btnDelete" style="width:90px;"  (click)="onDelete()" class="btn btn-danger">Delete</button>
+                </div>
+                <div class="form-group col-md-1" style="padding-top:22px;">
+                  <button type="test" id="btnBack" (click)="onBack()" style="width:90px;" class="btn btn-warning btnBack">Home</button>
+                </div>
+                <!-- <div class="form-group col-md-1" style="padding-top:22px;">
+                  <button type="test" id="btnDownload" (click)="downloadCSV($event)" style="width:90px;" class="btn btn-dark btnDownload">Download</button>
+                </div> -->
+              </div>
+
+
+
+
+              <div class="row">
+
+                <div class="col-md-2"></div>
+                <div class="col-md-8"></div>
+                <div class="col-md-2"></div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8"><span class="PageTitle">Question Set Lists</span></div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row" *ngIf="mode=='New'">
+          <form  [formGroup]="QuestionSetSearchForm">
+          <div class="col-md-8"></div>
+          <div class="col-md-1" style="vertical-align: middle;"><b>Search</b></div>
+          <div class="col-md-3"> <input type="text" class="form-control" formControlName="SearchValue"  (keyup)="onQuestionSetSearch()" ></div>
+        </form><br><br>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+
+              <div class="table-responsive">
+
+                <table class="table table-striped table-sm hover"  style="width:100%">
+                  <thead class="bg-primary">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <!--<th width="10%"></th>-->
+                      <th class="hidden">#SetId</th>
+                      <th>Category</th>
+                      <th>SeqNo</th>
+                      <th>Status</th>
+                      <th>Created By</th>
+                      <th>Created Date</th>
+                      <th>Modified By</th>
+                      <th>Modified Date</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let item of ItemsArray | paginate:{itemsPerPage: pagecount, currentPage:p} let i = index">
+                      <td>
+                        <button [disabled]="item.inedit" class="btn btn-warning" (click)="onEditClick($event, ((p-1)*pagecount)+i)"
+                          data-toggle="modal" data-target="#editModal"><span
+                            class="fa fa-edit"></span></button>
+
+                      </td>
+                      <td>
+                        <!--<div class="col-md-6"><button  style="font-size: 5px;" class="btn btn-success " (click)="onSaveClick($event, i)" data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-ok"></span></button></div>-->
+                        <button [disabled]="!item.inedit" class="btn btn-danger" (click)="onCancelClick(((p-1)*pagecount)+i)"
+                          data-toggle="modal" data-target="#editModal"><span
+                            class="fa fa-times"></span></button>
+
+                      </td>
+                      <td>
+                        <!--<div class="col-md-6"><button  style="font-size: 5px;" class="btn btn-success " (click)="onSaveClick($event, i)" data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-ok"></span></button></div>-->
+                        <button class="btn btn-primary" (click)="onQuestionClick(((p-1)*pagecount)+i)" data-toggle="modal"
+                          data-target="#editModal"><span class="fa fa-question"></span></button>
+
+                      </td>
+
+                      <td class="hidden">
+                        <span>{{item.SetID}}</span>
+                      </td>
+                      <td>
+                        <span>{{item.SetCategory}}</span>
+                   </td>
+                   <td>
+                    <span>{{item.SeqNo}}</span>
+               </td>
+                      <td>
+                        <span>{{item.Status}}</span>
+                   </td>
+
+                      <td>
+                        <span>{{item.CreatedBy}}</span>
+                   </td>
+                      <td>
+                        <span>{{item.CreatedDate}}</span>
+                    </td>
+                      <td>
+                        <span>{{item.ModifiedBy}}</span>
+                    </td>
+                      <td>
+                        <span>{{item.ModifiedDate}}</span>
+                      </td>
+                    </tr>
+                    <tr><td colspan="12" *ngIf="mode=='New'">                    <pagination-controls (pageChange)="p=$event"></pagination-controls></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+</div>

@@ -1,0 +1,100 @@
+html {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: .9rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+}
+.PageTitle {
+    font-size:1.2em;
+    font-weight:bold;
+    color:#0026ff
+}
+
+table thead th {
+  white-space: nowrap
+}
+.brandApplication {
+  position: absolute;
+  left: 50%;
+  padding-top:10px;
+  padding-bottom:10px;
+  margin-left: -100px !important;  /* 50% of your logo width */
+  display: block;
+}
+
+.brandLogo {
+  position: absolute;
+  left: 0%;
+  padding: 0px;
+  display: block;
+}
+.btn-black {
+  color: #fff;
+  background-color: black;
+  border-color: black;
+}
+.welcomeText{
+  color:#006666;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.btnblack {
+  color: #fff;
+  background-color:black;
+  border-color: black;
+}
+.btnblack:hover {
+  color: #fff;
+  background-color:#212529;
+  border-color: black;
+}
+
+.AlertMessage {
+  color: red;
+
+font-weight: bold;
+}
+
+.btn-dark {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.btn-dark:active {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+.btn-dark:hover {
+  color: #fff;
+  background-color: #23272b;
+  border-color: #1d2124;
+}
+
+.btn-dark:focus, .btn-dark.focus {
+  color: #fff;
+  background-color: #23272b;
+  border-color: #1d2124;
+}
+
+.btn-dark.disabled, .btn-dark:disabled {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.btn-dark:not(:disabled):not(.disabled):active, .btn-dark:not(:disabled):not(.disabled).active,
+.show > .btn-dark.dropdown-toggle {
+  color: #fff;
+  background-color: #1d2124;
+  border-color: #171a1d;
+}
+
+.btn-dark:not(:disabled):not(.disabled):active:focus, .btn-dark:not(:disabled):not(.disabled).active:focus,
+.show > .btn-dark.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
+}

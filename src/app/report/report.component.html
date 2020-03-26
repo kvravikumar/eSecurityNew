@@ -1,0 +1,211 @@
+<app-nav-Adminmenu></app-nav-Adminmenu>
+
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-8"><span class="PageTitle">{{PageTitle}}</span></div>
+      <div class="col-md-4"><span class="btn-success">{{SuccessMassage}}</span><span
+          class="btn-danger">{{errorMessage}}</span></div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form [formGroup]="UserForm" (ngSubmit)="onFormSubmit()">
+          <div class="row">
+
+
+            <div class="col-md-12">
+              <div class="row">
+                <div class="form-group col-md-2">
+                  <label for="TestDateFrom">Test Date From <span>*</span> </label>
+                  <input type="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.TestDateFrom.errors }" 
+                    formControlName="TestDateFrom">
+                  <div *ngIf="submitted && f.TestDateFrom.errors" class="invalid-feedback">
+                    <div *ngIf="f.TestDateFrom.errors.required" style="color:red">Test Date From is required</div>
+                  </div>
+
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="TestDateTo">Test Date To <span>*</span></label>
+                  <input type="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.TestDateTo.errors }"
+                    formControlName="TestDateTo">
+                  <div *ngIf="submitted && f.TestDateTo.errors" class="invalid-feedback">
+                    <div *ngIf="f.TestDateTo.errors.required" style="color:red">Test Date To is required</div>
+                  </div>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="Department">Department</label>
+                  <select id="Department" formControlName="Department" class="form-control">
+                    <option value="">Select Department.. </option>
+                    <option *ngFor="let Result of UserSectionArray" value="{{Result.CodeName}}">{{Result.CodeName}} </option>
+                  </select>
+                 
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="TestResult">Test Result</label>
+                  <select id="TestResult" formControlName="TestResult"
+                    [ngClass]="{ 'is-invalid': submitted && f.TestResult.errors }" class="form-control" >
+                    <!-- <option value="">Select TestResult.. </option> -->
+                    <option *ngFor="let Result of TestResultList" value="{{Result.value}}">{{Result.name}} </option>
+                  </select>
+                  <div *ngIf="submitted && f.TestResult.errors" class="invalid-feedback">
+                    <div *ngIf="f.TestResult.errors.required" style="color:red">TestResult is required</div>
+                  </div>
+                  <!-- <input type="text" class="form-control" formControlName="TestResult" placeholder="Test Result"> -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-2">
+                  <label for="EmployeeId">Employee ID</label>
+                  <input type="text" class="form-control" formControlName="EmployeeId" placeholder="Employee ID"  id="EmployeeId">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="EmployeeName">Employee Name</label>
+                  <input type="text" class="form-control" formControlName="EmployeeName" placeholder="Employee Name"  id="EmployeeName">
+                </div>
+               
+               
+              </div>
+              <div class="row">
+                <div class="form-group col-md-2">
+                  <!-- <label for="RetestDateFrom">RetestDate From</label>
+                  <input type="date" class="form-control" formControlName="RetestDateFrom" placeholder="RetestDate From"> -->
+                </div>
+                <div class="form-group col-md-2">
+                  <!-- <label for="RetestDateTo">RetestDate To</label>
+                  <input type="date" class="form-control" formControlName="RetestDateTo" placeholder="RetestDate To"> -->
+                </div>
+                <div class="form-group col-md-1" style="padding-top:22px;">
+                  <button type="submit" id="btnSearch" style="width:90px;"
+                    class="btn btn-primary btnSearch">Search</button>
+                </div>
+                <div class="form-group col-md-1" style="padding-top:22px;">
+                  <button id="btnBack" (click)="onBack()" style="width:90px;"
+                    class="btn btn-warning btnBack">Home</button>
+                </div>
+                <div class="form-group col-md-1" style="padding-top:22px;">
+                  <button type="test" id="btnDownload" (click)="downloadCSV()" style="width:90px;"
+                    class="btn btn-black">Download</button>
+                  <!-- <button (click)="downloadCSV()" class="btn-default">Download CSV</button> -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-3">
+
+                </div>
+                <div class="form-group col-md-2">
+
+                </div>
+                <div class="form-group col-md-1" style="padding-top:22px;">
+
+                </div>
+                <div class="form-group col-md-1" style="padding-top:22px;">
+
+                </div>
+                <div class="form-group col-md-1" style="padding-top:22px;">
+
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div
+                  *ngIf="UserForm.controls['TestDateFrom'].invalid && (UserForm.controls['ITestDateFromd'].dirty || UserForm.controls['TestDateFrom'].touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="UserForm.controls['TestDateFrom'].errors.required">TestDate From is empty.</div>
+                </div>
+
+                <p style="color:#E92626;font-size:15px;font-weight:normal" Class="success" align="left">
+                  {{errorMessage}}
+                </p>
+              </div> -->
+
+
+              <div class="row">
+
+                <div class="col-md-2"></div>
+                <div class="col-md-8"></div>
+                <div class="col-md-2"></div>
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8"><span class="PageTitle">Test Report Summary</span></div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+
+              <div class="table-responsive">
+
+                <table class="table table-striped table-sm hover" style="width:100%">
+                  <thead class="bg-primary">
+                    <tr>
+
+
+                      <!--<th width="10%"></th>-->
+                      <th>Employee ID</th>
+                      <th>Department</th>
+                      <th>Employee Name</th>
+                      <th>Email</th>
+                      <th>Contact No</th>
+                      <th>Test Date</th>
+                      <th>Result</th>
+                      
+
+
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let item of ItemsArray | paginate:{itemsPerPage: 5, currentPage:p} let i = index">
+
+                      <td>
+                        <span>{{item.EmployeeId}}</span>
+                      </td>
+                      <td>
+                        <span>{{item.Department}}</span>
+                      </td>
+                      <td>
+                        <span>{{item.EmployeeName}}</span>
+                      </td>
+                      <td>
+                        <span>{{item.Email}}</span>
+                      </td>
+                      <td>
+                        <span>{{item.ContactNo}}</span>
+                      </td>
+                      <td>
+                        <span>{{item.TestDate}}</span>
+                      </td>
+                      <td>
+                        <span>{{item.TestResult}}</span>
+                      </td>
+                     
+
+                    </tr>
+                    <tr>
+                      <td colspan="12">
+                        <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+</div>

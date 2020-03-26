@@ -1,0 +1,205 @@
+<app-nav-Adminmenu></app-nav-Adminmenu>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4"><span class="PageTitle">{{PageTitle}}</span></div>
+      <div class="col-md-8" style="text-align: right;"><span style="color: blue;">{{SuccessMassage}}</span><span
+          style="color:red;">{{errorMessage}}</span></div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <form [formGroup]="UserForm" (ngSubmit)="onFormSubmit()">
+            <div class="col-md-12">
+              <div class="row">
+                <!-- <div class="form-group col-md-2">
+                  <label for="SetID">Question Set</label>
+                  <input type="text" formControlName="SetID" disabled class="form-control" placeholder="SetID">
+                </div> -->
+                <div class="form-group col-md-1">
+                  <label for="QNo">Seq</label>
+                  <input type="test" formControlName="QNo" class="form-control" placeholder="Seq" >
+                </div>
+                <div class="form-group col-md-1 hidden">
+                  <label for="QID">QID</label>
+                  <input type="test" formControlName="QID" class="form-control" placeholder="QID">
+                </div>
+                <div class="form-group col-md-8">
+                  <label for="Password">Question</label>
+                  <textarea class="form-control" formControlName="Question" placeholder="Question"></textarea>
+                </div>
+
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <input type="hidden" formControlName="AnswerType" class="form-control" value="OPTION" placeholder="Seq">
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <span class="PageTitle">Answers</span>
+              </div>
+              <div class="form-group col-md-2">
+
+              </div>
+              <div class="form-group col-md-2">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-12">
+                <table class="table table-striped table-bordered" width="100%">
+                  <thead class="bg-primary">
+                    <tr>
+
+                      <th>Seq</th>
+                      <th class="hidden">AnwerID</th>
+                      <th width="75%">Anwer</th>
+                      <th>isCorrect</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <!-- <input class="form-control" type="text" formControlName="NewAnswerNo" /> -->
+                      </td>
+                      <td>
+                        <input class="form-control" type="text" formControlName="NewAnswer" />
+                      </td>
+                      <td>
+                        <input class="form-control" type="checkbox" formControlName="NewAnswerInd" />
+                      </td>
+
+                      <td>
+                        <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button>
+                      </td>
+                    </tr>
+                    <tr *ngFor="let field of a.controls; let i = index" [formGroup]="field">
+                      <td>
+                        <input class="form-control" type="text" formControlName="AnswerNo" />
+                      </td>
+
+                      <td class="hidden">
+                        <input class="form-control" type="hidden" formControlName="AnswerID" />
+                      </td>
+                      <td class="hidden">
+                        <input class="form-control" type="hidden" formControlName="QID" />
+                      </td>
+
+                      <td>
+                        <input class="form-control" type="text" formControlName="Answer" />
+                      </td>
+                      <td>
+                        <input class="form-control" type="checkbox" (change)="onSelect($event);"
+                          formControlName="AnswerInd" />
+                      </td>
+                      <td>
+                        <button class="btn btn-default" type="button" [disabled]=enableEdit
+                          (click)="deleteFieldValue(i)">Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-md-2"></div>
+              <div class="col-md-6"></div>
+              <div class="col-md-1">
+                <button type="submit" id="btnCandidateSave"
+                  class="btn btn-primary btnCandidateSave" style="width:90px;">{{ButtonTitle}}</button>
+                </div>
+              <div class="form-group col-md-1" *ngIf="mode=='edit'">
+                <button type="submit" id="btnDelete" style="width:90px;" (click)="onDelete()"
+                  class="btn btn-danger">Delete</button>
+              </div>
+              <div class="form-group col-md-1">
+                <button type="test" id="btnBack" (click)="onBack()" style="width:90px;"
+                  class="btn btn-warning btnBack">Back</button>
+              </div>
+
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-8"><span class="PageTitle">Question Lists</span></div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div>
+
+                <div class="table-responsive">
+
+                  <table class="table table-striped table-sm hover" style="width:100%">
+                    <thead class="bg-primary" style="height:2px">
+                      <tr>
+                        <th width="1%"></th>
+                        <th width="1%"></th>
+                        <th class="hidden">SetID</th>
+                        <th>QNo</th>
+                        <th class="hidden">QID</th>
+                        <th>Question</th>
+                        <th>CreatedBy</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr *ngFor="let item of ItemsArray | paginate:{itemsPerPage: pagecount, currentPage:p} let i = index">
+                        <td>
+                          <button [disabled]="item.inedit" class="btn btn-warning" (click)="onEditClick($event, ((p-1)*pagecount)+i)"
+                            data-toggle="modal" data-target="#editModal"><span class="fa fa-edit"></span></button>
+
+                        </td>
+                        <td>
+                          <button [disabled]="!item.inedit" class="btn btn-danger" (click)="onCancelClick(((p-1)*pagecount)+i)"
+                            data-toggle="modal" data-target="#editModal"><span class="fa fa-times"></span></button>
+                        </td>
+                        <td class="hidden">
+                          <span>{{item.SetID}}</span>
+                        </td>
+
+                        <td>
+                          <span>{{item.QNo}}</span>
+                        </td>
+                        <td class="hidden">
+                          <span>{{item.QID}}</span>
+                        </td>
+                        <td>
+                          <span>{{item.Question}}</span>
+                        </td>
+                        <td>
+                          <span>{{item.CreatedBy}}</span>
+                        </td>
+
+                      </tr>
+                      <tr>
+                        <td colspan="12">
+                          <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

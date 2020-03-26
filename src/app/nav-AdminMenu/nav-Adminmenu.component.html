@@ -1,0 +1,99 @@
+<header>
+
+  <!-- <div *ngIf="userTypeAdmin">
+    <div class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand brandLogo" [routerLink]="'/AdminDashboard'">
+            <img class="img-responsive"  src="assets/Images/STL.png" />
+          </a>
+        </div>
+        <div class="navbar-collapse collapse" >
+          <ul class="nav navbar-nav brandApplication" >
+           
+            <img class="img-responsive" src="assets/Images/eSecuity.png">
+          </ul>
+          <div style="float:right;padding-right:5%">
+            <ul class="nav navbar-nav">
+              <li class="nav-item">
+                <a style="color:white"> Welcome to <b> {{User_ID}}</b></a>
+              </li>
+              <li class="nav-item">
+                <a style="cursor:pointer;color:white" class="nav-link text-light" (click)="logout()">Logout</a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="userTypeClient">
+    <div class="navbar navbar-inverse ">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand brandLogo" [routerLink]="'/ClientDashboard'">
+            <img class="img-responsive"  src="assets/Images/STL.png" />
+          </a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav brandApplication">
+          
+            <img class="img-responsive" src="assets/Images/eSecuity.png">
+          </ul>
+          <div style="float:right;padding-right:5%">
+            <ul class="nav navbar-nav">
+              <li class="nav-item">
+                <a style="color:white"> Welcome to <b> {{User_ID}}</b></a>
+              </li>
+              <li class="nav-item">
+                <a style="cursor:pointer;color:white" class="nav-link text-light" (click)="logout()">Logout</a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+</header> -->
+
+  <div class="row">
+    <div class="col-md-12" style="background-color:#337ab7;padding-top: 30px;"></div>
+  </div>
+  <div class="row panel panel-primary" >
+    <div class="panel-body" style="padding-top: 2px;vertical-align:bottom;">
+      <div class="col-md-5"><a class="navbar-brand brandLogo" style="cursor: pointer;" (click)="OnHome()">
+        <img class="img-responsive" src="assets/Images/STL.png" />
+      </a></div>
+    <div class="col-md-3"> <img class="img-responsive" src="assets/Images/eSecurity.png"></div>
+    <div class="col-md-4">
+      <div class="row" style="padding-top: 5px;" >
+        <div class="col-md-9" > <label class="welcomeText"> Welcome  <b> {{User_Name}} </b></label></div>
+        <div class="col-md-3"> <a class="welcomeText" style="cursor:pointer;" 
+            (click)="logout()">LOGOUT</a></div>
+      </div>
+
+    </div>
+    
+    </div>
+  </div>
+
+
+
