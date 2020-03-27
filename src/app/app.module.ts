@@ -28,6 +28,7 @@ import { ReportComponent } from './report/report.component';
 import { ViewTestComponent } from './view-test/view-test.component';
 import { NavLoginMenuComponent } from './nav-login-menu/nav-login-menu.component';
 import { QuickCodeComponent } from './quick-code/quick-code.component';
+import { NavFooterComponent } from './nav-footer/nav-footer.component';
 
 
 
@@ -47,7 +48,8 @@ import { QuickCodeComponent } from './quick-code/quick-code.component';
     ReportComponent,
     ViewTestComponent,
     NavLoginMenuComponent,
-    QuickCodeComponent
+    QuickCodeComponent,
+    NavFooterComponent
 
   ],
   imports: [

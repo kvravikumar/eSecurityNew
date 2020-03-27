@@ -165,7 +165,7 @@ export class NewQuestionComponent {
       var r = confirm("Please confirm!  Do want to delete this answer?");
       if (r == true) {
         this.questionService.DeleteAnswer(this.a.value[index]).subscribe((result) => {
-          if (result.status == "succes") {
+          if (result.status == "success") {
             this.data = true;
             this.SuccessMassage = 'Answer deleted';
             this.a.removeAt(index);
@@ -230,7 +230,7 @@ export class NewQuestionComponent {
 
   getQuestionSet() {
     this.testService.getAll().subscribe((result: any) => {
-      if (result.status == "succes")
+      if (result.status == "success")
         this.QuestionSetArray = result.data;
       else
         this.errorMessage = result.message;
@@ -253,7 +253,7 @@ export class NewQuestionComponent {
     //this.UserForm.controls['SetID'].disable();
     if (this.PageTitle == "New Question") {
       this.questionService.CreateQuestion(user).subscribe((result) => {
-        if (result.status == "succes") {
+        if (result.status == "success") {
           this.data = true;
           this.SuccessMassage = result.message;
           this.errorMessage = "";
@@ -281,7 +281,7 @@ export class NewQuestionComponent {
     else {
 
       this.questionService.UpdateQuestion(user).subscribe((result) => {
-        if (result.status == "succes") {
+        if (result.status == "success") {
           this.data = true;
           this.SuccessMassage = 'Question Updated Successfully';
           this.errorMessage = '';
@@ -314,7 +314,7 @@ export class NewQuestionComponent {
       const user = this.UserForm.value;
       //this.UserForm.controls['SetID'].disable();
       this.questionService.DeleteQuestion(user).subscribe((result) => {
-        if (result.status == "succes") {
+        if (result.status == "success") {
           this.data = true;
           this.SuccessMassage = result.message;
           this.errorMessage = '';
@@ -384,7 +384,7 @@ export class NewQuestionComponent {
       this.questionService.GetQuestionByID(this.ItemsArray[indexNumber].QID).subscribe((result: any) => {
         //this.ItemsArray = res;
         //this.ItemsArray[indexNumber].inedit = true;
-        if (result.status == "succes") {
+        if (result.status == "success") {
           for (let index = 0; index < result.data[0].AnswersModel.length; index++) {
 
             const element = result.data[0].AnswersModel[index];

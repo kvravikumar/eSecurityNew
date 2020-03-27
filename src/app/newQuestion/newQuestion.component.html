@@ -18,7 +18,7 @@
                 </div> -->
                 <div class="form-group col-md-1">
                   <label for="QNo">Seq</label>
-                  <input type="test" formControlName="QNo" class="form-control" placeholder="Seq" >
+                  <input type="test" formControlName="QNo" class="form-control" placeholder="Seq">
                 </div>
                 <div class="form-group col-md-1 hidden">
                   <label for="QID">QID</label>
@@ -110,9 +110,9 @@
               <div class="col-md-2"></div>
               <div class="col-md-6"></div>
               <div class="col-md-1">
-                <button type="submit" id="btnCandidateSave"
-                  class="btn btn-primary btnCandidateSave" style="width:90px;">{{ButtonTitle}}</button>
-                </div>
+                <button type="submit" id="btnCandidateSave" class="btn btn-primary btnCandidateSave"
+                  style="width:90px;">{{ButtonTitle}}</button>
+              </div>
               <div class="form-group col-md-1" *ngIf="mode=='edit'">
                 <button type="submit" id="btnDelete" style="width:90px;" (click)="onDelete()"
                   class="btn btn-danger">Delete</button>
@@ -160,15 +160,18 @@
                     </thead>
 
                     <tbody>
-                      <tr *ngFor="let item of ItemsArray | paginate:{itemsPerPage: pagecount, currentPage:p} let i = index">
+                      <tr
+                        *ngFor="let item of ItemsArray | paginate:{itemsPerPage: pagecount, currentPage:p} let i = index">
                         <td>
-                          <button [disabled]="item.inedit" class="btn btn-warning" (click)="onEditClick($event, ((p-1)*pagecount)+i)"
-                            data-toggle="modal" data-target="#editModal"><span class="fa fa-edit"></span></button>
+                          <button [disabled]="item.inedit" class="btn btn-warning"
+                            (click)="onEditClick($event, ((p-1)*pagecount)+i)" data-toggle="modal"
+                            data-target="#editModal"><span class="fa fa-edit"></span></button>
 
                         </td>
                         <td>
-                          <button [disabled]="!item.inedit" class="btn btn-danger" (click)="onCancelClick(((p-1)*pagecount)+i)"
-                            data-toggle="modal" data-target="#editModal"><span class="fa fa-times"></span></button>
+                          <button [disabled]="!item.inedit" class="btn btn-danger"
+                            (click)="onCancelClick(((p-1)*pagecount)+i)" data-toggle="modal"
+                            data-target="#editModal"><span class="fa fa-times"></span></button>
                         </td>
                         <td class="hidden">
                           <span>{{item.SetID}}</span>
@@ -203,3 +206,5 @@
       </div>
     </div>
   </div>
+</div>
+<app-nav-footer></app-nav-footer>

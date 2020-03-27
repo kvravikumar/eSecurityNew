@@ -349,7 +349,7 @@ export class CandidateComponent {
         this.loginService.LogNominate(this.UserForm.value.Id, this.User_ID).subscribe((res: any) => {
             //this.ItemsArray = res;
             if (res.status =="success") {
-            this.SuccessMassage = res.message + '(' + this.UserForm.value.FirstName + ')';
+            this.SuccessMassage = res.message;
             this.UserForm.controls['Id'].disable();
             }
             else
