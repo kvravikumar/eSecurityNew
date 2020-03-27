@@ -290,7 +290,7 @@ export class CandidateComponent {
         this.loginService.GetUsers(user).subscribe((res: any) => {
 
             if (res.status =="success") {
-            res.forEach(element => {
+            res.data.forEach(element => {
 
                 if (element.Status != null && element.Status == "A")
                     element.Status = "Active"

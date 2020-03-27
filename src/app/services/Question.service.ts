@@ -18,40 +18,40 @@ export class QuestionService {
     headerAuthorization = environment.headerAuthorization;
 
     Url: string;
-    UrlAnswer:string;
+    UrlAnswer: string;
     token: string;
     header: any;
     router: Router
     headerSettings: { [name: string]: string | string[]; } = {};
     constructor(private http: HttpClient) {
-    //   this.Url = 'http://www.pearltechservices.com/SRQuizApi/Question';
-    //   this.UrlAnswer = 'http://www.pearltechservices.com/SRQuizApi/Answer';
+        //   this.Url = 'http://www.pearltechservices.com/SRQuizApi/Question';
+        //   this.UrlAnswer = 'http://www.pearltechservices.com/SRQuizApi/Answer';
 
-    this.Url =this.baseUrl + 'Question';
-    this.UrlAnswer = this.baseUrl + 'Answer';
+        this.Url = this.baseUrl + 'Question';
+        this.UrlAnswer = this.baseUrl + 'Answer';
 
 
         this.headerSettings['Authorization'] = 'Basic ' + btoa(this.headerAuthorization);
         this.headerSettings['Content-Type'] = 'application/json';
     }
 
-    GetQuestion(id:string) {
+    GetQuestion(id: string) {
         // debugger;
         const httpOptions = { headers: this.headerSettings };
-        return this.http.post<any>(this.Url + '/GetBySetId/'+id, "", { headers: this.header });
+        return this.http.post<any>(this.Url + '/GetBySetId/' + id, "", httpOptions);
     }
 
-    GetQuestionByID(id:string) {
+    GetQuestionByID(id: string) {
         // debugger;
         const httpOptions = { headers: this.headerSettings };
-        return this.http.post<any>(this.Url + '/GetById/'+id, "", httpOptions);
+        return this.http.post<any>(this.Url + '/GetById/' + id, "", httpOptions);
     }
 
     CreateQuestion(question: Question) {
         const httpOptions = { headers: this.headerSettings };
-      return this.http.post<any>(this.Url + '/add/', question, httpOptions).pipe(map(user => {
+        return this.http.post<any>(this.Url + '/add/', question, httpOptions).pipe(map(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-           // localStorage.setItem('currentUser', JSON.stringify(user));
+            // localStorage.setItem('currentUser', JSON.stringify(user));
 
             return user;
         }));
@@ -61,7 +61,7 @@ export class QuestionService {
         const httpOptions = { headers: this.headerSettings };
         return this.http.post<any>(this.Url + '/update/', question, httpOptions).pipe(map(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-          sessionStorage.setItem('currentUser', JSON.stringify(user));
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
 
             return user;
         }));
@@ -69,7 +69,7 @@ export class QuestionService {
     DeleteAnswer(option: Option) {
         const httpOptions = { headers: this.headerSettings };
         return this.http.post<any>(this.UrlAnswer + '/remove/', option, httpOptions).pipe(map(user => {
-         sessionStorage.setItem('currentUser', JSON.stringify(user));
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
             return user;
         }));
     }
@@ -77,7 +77,7 @@ export class QuestionService {
         const httpOptions = { headers: this.headerSettings };
         return this.http.post<any>(this.Url + '/remove/', question, httpOptions).pipe(map(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-          sessionStorage.setItem('currentUser', JSON.stringify(user));
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
 
             return user;
         }));

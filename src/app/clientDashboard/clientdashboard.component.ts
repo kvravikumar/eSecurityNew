@@ -113,7 +113,7 @@ export class ClientDashboardComponent implements OnInit {
      
 
       });
-      this.testStatus = (this.clientTest[this.clientTest.length - 1].TestResult == "F") ? false : true;
+      this.testStatus = (this.clientTest[this.clientTest.length - 1].TestResult == "Fail") ? false : true;
     }
     else
     this.errorMessage=result.message

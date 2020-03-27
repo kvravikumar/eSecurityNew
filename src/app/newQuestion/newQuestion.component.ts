@@ -342,7 +342,7 @@ export class NewQuestionComponent {
   getQuestion() {
 
     this.questionService.GetQuestion(this.UserForm.value.SetID).subscribe((result: any) => {
-      if (result.status == "succes") {
+      if (result.status == "success") {
         this.ItemsArray = result.data;
 
         this.UserForm.patchValue({
