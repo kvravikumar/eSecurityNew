@@ -177,7 +177,7 @@ export class TestComponent implements OnInit {
       if (result.status == "success")
       {
 
-      this.quiz = new Quiz(result);
+      this.quiz = new Quiz(result.data);
       this.pager.count = this.quiz.questions.length;
       this.startTime = new Date();
       this.ellapsedTime = '00:00';

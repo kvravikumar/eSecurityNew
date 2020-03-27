@@ -18,7 +18,7 @@ export class InstructionComponent implements OnInit {
   ngOnInit() {
     this.User_ID = sessionStorage.getItem("User_ID");
     this.getAdminContact();
-    this.GetQuestionSet()
+   // this.GetQuestionSet()
 
   }
 
