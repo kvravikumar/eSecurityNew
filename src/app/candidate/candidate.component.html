@@ -108,7 +108,11 @@
                     </div>
                   </div>
                   <div *ngIf="submitted && f.ContactNo.errors" class="invalid-feedback">
-                    <div *ngIf="f.ContactNo.errors.max" style="color:red">Contact max length is 75
+                    <div *ngIf="f.ContactNo.errors.maxlength" style="color:red">Contact No max length is 75
+                    </div>
+                  </div>
+                  <div *ngIf="submitted && f.ContactNo.errors" class="invalid-feedback">
+                    <div *ngIf="f.ContactNo.errors.minlength" style="color:red">Contact No min length is 8
                     </div>
                   </div>
                 </div>

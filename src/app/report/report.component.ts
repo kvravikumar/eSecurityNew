@@ -25,6 +25,7 @@ export class ReportComponent implements OnInit {
   SuccessMassage: string;
   UserSectionArray = [];
   ItemsArrayExcel = [];
+  ChkSummaryReport=false;
   public TestResultList = [{ name: 'All', value: 'A' }, { name: 'Pass', value: 'P' }, { name: 'Fail', value: 'F' }];
   constructor(private datePipe: DatePipe, private testService: TestService, private loginService: LoginService, private datepie: DatePipe, private router: Router) {
     this.PageTitle = "Test Report Search Criteria";
@@ -59,7 +60,7 @@ export class ReportComponent implements OnInit {
       EmployeeName: new FormControl(''),
       RetestDateFrom: new FormControl(''),
       RetestDateTo: new FormControl(''),
-      ReportInd: new FormControl(''),
+      SummaryReport: new FormControl('N'),
 
     });
 
@@ -116,6 +117,8 @@ export class ReportComponent implements OnInit {
     this.testService.GetTestReport(this.UserForm.value).subscribe((result: any) => {
 
       if (result.status == "success") {
+
+        this.ChkSummaryReport=this.UserForm.value.SummaryReport=="Y";
         this.ItemsArray = result.data;
 
         this.ItemsArray.forEach(element => {

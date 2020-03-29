@@ -60,6 +60,10 @@ export class TestService {
     const httpOptions = { headers: this.headerSettings };
     return this.http.post<any>(this.TestUrl + 'GetByUser/' + id, "", httpOptions);
   }
+  CheckUserTest(id) {
+    const httpOptions = { headers: this.headerSettings };
+    return this.http.post<any>(this.TestUrl + 'CheckUserTest/' + id, "", httpOptions);
+  }
 
   GetQuestionSet(id) {
     const httpOptions = { headers: this.headerSettings };

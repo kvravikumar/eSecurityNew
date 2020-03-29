@@ -43,6 +43,8 @@ export class ClientDashboardComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 2
     };
+
+
     this.getTrainingMaterial();
     this.GetTotalTests();
     this.getTest();
@@ -120,7 +122,7 @@ export class ClientDashboardComponent implements OnInit {
 
         this.testStatus = (this.clientTest[this.clientTest.length - 1].TestResult == "Fail") ? false : true;
 
-        if (!this.testStatus && this.ReTestDate >= this.date)
+        if (!this.testStatus )
           this.testStatus = true;
         else
           this.testStatus = false;
@@ -133,10 +135,19 @@ export class ClientDashboardComponent implements OnInit {
   }
   onNewTest() {
 
-    if (this.testStatus)
-      this.errorMessage = "There is no test available. Please contact Administrator." + this.AdminContact;
-    else
-      this.router.navigate(['/Instruction']);
+      this.TestService.CheckUserTest(this.User_ID).subscribe((result: any) => {
+
+      if (result.status == "success") {
+        this.router.navigate(['/Instruction']);
+      }
+      else
+        this.errorMessage = result.message + " " + this.AdminContact; 
+
+    })
+      // if (this.testStatus)
+    //   this.errorMessage = "There is no test available. Please contact Administrator." + this.AdminContact;
+    // else
+    //   this.router.navigate(['/Instruction']);
   }
   getTrainingMaterial() {
     this.LoginService.GetQuickCode("TrainingMaterial").subscribe((result: any) => {

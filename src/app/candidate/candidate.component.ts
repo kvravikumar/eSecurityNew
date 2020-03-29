@@ -42,11 +42,11 @@ export class CandidateComponent {
     Candidates: Candidate[] = [];
     editIndex: number = null;
     bNominate: boolean = false;
-    
-    public CandidateStatus = [{ name: 'Active', value: 'A' }, { name: 'In-Active', value: 'I' }];
-    public CandidateUserGroup = [{ name: 'SuperAdmin' },{ name: 'Admin' }, { name: 'Client' }];
 
-    constructor(private datePipe: DatePipe ,private router: Router, private loginService: LoginService,private fb: FormBuilder) {
+    public CandidateStatus = [{ name: 'Active', value: 'A' }, { name: 'In-Active', value: 'I' }];
+    public CandidateUserGroup = [{ name: 'SuperAdmin' }, { name: 'Admin' }, { name: 'Client' }];
+
+    constructor(private datePipe: DatePipe, private router: Router, private loginService: LoginService, private fb: FormBuilder) {
         this.getCandidateStatus();
         this.PageTitle = "New Employee";
     }
@@ -82,10 +82,10 @@ export class CandidateComponent {
             Password: new FormControl('', Validators.required),
             FirstName: new FormControl('', Validators.required),
             LastName: new FormControl(''),
-            UserEmail: new FormControl('', [Validators.required]),
+            UserEmail: new FormControl('', [Validators.required, Validators.email]),
             UserGroup: new FormControl('', Validators.required),
             UserSection: new FormControl('', Validators.required),
-            ContactNo: new FormControl('', [Validators.required]),
+            ContactNo: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(75)]),
             Status: new FormControl('A', Validators.required),
             SearchValue: new FormControl(''),
             CreatedBy: new FormControl(this.User_ID),
@@ -104,15 +104,15 @@ export class CandidateComponent {
         this.getUserSetion();
         this.getAdminContact();
 
-       
+
     }
 
-  
+
 
     onFormSubmit() {
         this.submitted = true;
-        this.SuccessMassage="";
-        this.errorMessage="";
+        this.SuccessMassage = "";
+        this.errorMessage = "";
 
         // stop here if form is invalid
         if (this.UserForm.invalid) {
@@ -136,33 +136,31 @@ export class CandidateComponent {
 
     onDelete() {
 
-        this.SuccessMassage="";
-        this.errorMessage="";
+        this.SuccessMassage = "";
+        this.errorMessage = "";
 
         var r = confirm("Please confirm the user to delete?");
         if (r == true) {
             this.UserForm.controls['Id'].enable();
             const user = this.UserForm.value;
             this.loginService.DeleteUser(user).subscribe((result) => {
-                if(result.status=="success")
-                {
-                this.data = true;
-                this.SuccessMassage = result.message;
-                this.errorMessage = "";
-                this.UserForm.reset();
-                this.UserSearchForm.reset();
-                this.getUser();
-                this.submitted = false;
-            } else
-            {
-                this.SuccessMassage = '';
-                this.errorMessage = result.message;
-            }
+                if (result.status == "success") {
+                    this.data = true;
+                    this.SuccessMassage = result.message;
+                    this.errorMessage = "";
+                    this.UserForm.reset();
+                    this.UserSearchForm.reset();
+                    this.getUser();
+                    this.submitted = false;
+                } else {
+                    this.SuccessMassage = '';
+                    this.errorMessage = result.message;
+                }
             }, error => {
                 this.data = true;
                 this.errorMessage = error.message;
             });
-       
+
         }
 
         return false;
@@ -174,18 +172,18 @@ export class CandidateComponent {
         this.ItemsArrayExcel.forEach(item => delete item.NominateInd);
         this.ItemsArrayExcel.forEach(function (obj) {
             obj.Password = "***";
-          });
-        
+        });
+
         const newData = JSON.parse(JSON.stringify(this.ItemsArrayExcel, (key, value) =>
-          value === null || value === undefined
-              ? ''    // return empty string for null or undefined
-              : value // return everything else unchanged
-         ));
+            value === null || value === undefined
+                ? ''    // return empty string for null or undefined
+                : value // return everything else unchanged
+        ));
 
         new AngularCsv(newData, "Employee Report", this.csvOptions);
     }
 
-    
+
 
     Createemployee(candidate: Candidate) {
 
@@ -199,20 +197,18 @@ export class CandidateComponent {
         const user = this.UserForm.value;
         if (this.PageTitle == "New Employee") {
             this.loginService.CreateUser(user).subscribe((response) => {
-                if(response.status=="success")
-                {
-                this.data = true;
-                this.SuccessMassage = response.message;
-                this.errorMessage = "";
-                this.UserForm.reset();
-                this.UserForm.patchValue({Status:"A"});
-                this.UserSearchForm.reset();
-                this.getUser();
-                this.mode="New";
-               // this.SuccessMassage = '';
+                if (response.status == "success") {
+                    this.data = true;
+                    this.SuccessMassage = response.message;
+                    this.errorMessage = "";
+                    this.UserForm.reset();
+                    this.UserForm.patchValue({ Status: "A" });
+                    this.UserSearchForm.reset();
+                    this.getUser();
+                    this.mode = "New";
+                    // this.SuccessMassage = '';
                 }
-                else
-                {
+                else {
                     this.SuccessMassage = '';
                     this.errorMessage = response.message;
                 }
@@ -223,30 +219,28 @@ export class CandidateComponent {
         }
         else {
             this.loginService.UpdateUser(user).subscribe((response) => {
-                if(response.status=="success")
-                {
-                this.data = true;
-                this.SuccessMassage = response.message;
-                this.errorMessage = "";
-                this.UserForm.reset();
-                this.UserSearchForm.reset();
-                this.UserForm.patchValue({Status:"A"});
-                this.PageTitle = "New Employee";
-                this.errorMessage = "";
-                this.getUser();
-                this.mode="New";
-               // this.SuccessMassage = '';
-                //this.onUserSearch();
+                if (response.status == "success") {
+                    this.data = true;
+                    this.SuccessMassage = response.message;
+                    this.errorMessage = "";
+                    this.UserForm.reset();
+                    this.UserSearchForm.reset();
+                    this.UserForm.patchValue({ Status: "A" });
+                    this.PageTitle = "New Employee";
+                    this.errorMessage = "";
+                    this.getUser();
+                    this.mode = "New";
+                    // this.SuccessMassage = '';
+                    //this.onUserSearch();
                 }
-                else
-                {
+                else {
                     this.SuccessMassage = '';
                     this.errorMessage = response.message;
                 }
 
             }, error => {
                 this.data = true;
-               // this.SuccessMassage = "";
+                // this.SuccessMassage = "";
                 this.errorMessage = error.message;
             });
         }
@@ -261,24 +255,24 @@ export class CandidateComponent {
         // const user = this.UserForm.value;
         this.loginService.GetUsers(null).subscribe((result: any) => {
 
-            if (result.status =="success") {
+            if (result.status == "success") {
                 result.data.forEach(element => {
 
-                if (element.Status != null && element.Status == "A")
-                    element.Status = "Active"
-                else if (element.Status != null && element.Status == "I")
-                    element.Status = "In-Active"
-                
-                if (element.CreatedDate != null)
-                    element.CreatedDate =  this.datePipe.transform(element.CreatedDate , 'dd-MMM-yyyy');
-                
-                if (element.ModifyDate != null)
-                    element.ModifyDate =  this.datePipe.transform(element.ModifyDate , 'dd-MMM-yyyy');
-                   
+                    if (element.Status != null && element.Status == "A")
+                        element.Status = "Active"
+                    else if (element.Status != null && element.Status == "I")
+                        element.Status = "In-Active"
 
-            });
-        }
-       
+                    if (element.CreatedDate != null)
+                        element.CreatedDate = this.datePipe.transform(element.CreatedDate, 'dd-MMM-yyyy');
+
+                    if (element.ModifyDate != null)
+                        element.ModifyDate = this.datePipe.transform(element.ModifyDate, 'dd-MMM-yyyy');
+
+
+                });
+            }
+
 
             this.ItemsArray = result.data;
 
@@ -289,37 +283,37 @@ export class CandidateComponent {
 
         this.loginService.GetUsers(user).subscribe((res: any) => {
 
-            if (res.status =="success") {
-            res.data.forEach(element => {
+            if (res.status == "success") {
+                res.data.forEach(element => {
 
-                if (element.Status != null && element.Status == "A")
-                    element.Status = "Active"
-                else if (element.Status != null && element.Status == "I")
-                    element.Status = "In-Active"
-                
-                if (element.CreatedDate != null)
-                    element.CreatedDate =  this.datePipe.transform(element.CreatedDate , 'dd-MMM-yyyy');
-                
-                if (element.ModifyDate != null)
-                    element.ModifyDate =  this.datePipe.transform(element.ModifyDate , 'dd-MMM-yyyy');
-                   
-            });
-            this.ItemsArray = res.data;
-            this.p=1;
-        }
+                    if (element.Status != null && element.Status == "A")
+                        element.Status = "Active"
+                    else if (element.Status != null && element.Status == "I")
+                        element.Status = "In-Active"
 
-          
+                    if (element.CreatedDate != null)
+                        element.CreatedDate = this.datePipe.transform(element.CreatedDate, 'dd-MMM-yyyy');
+
+                    if (element.ModifyDate != null)
+                        element.ModifyDate = this.datePipe.transform(element.ModifyDate, 'dd-MMM-yyyy');
+
+                });
+                this.ItemsArray = res.data;
+                this.p = 1;
+            }
+
+
         })
     }
 
     getUserSetion() {
         this.loginService.GetQuickCode("DEPARTMENT").subscribe((res: any) => {
 
-            if (res.status =="success") {
-            this.UserSectionArray = res.data;
+            if (res.status == "success") {
+                this.UserSectionArray = res.data;
             }
             else
-            this.errorMessage=res.message;
+                this.errorMessage = res.message;
 
 
         })
@@ -328,17 +322,17 @@ export class CandidateComponent {
     getAdminContact() {
         this.loginService.GetQuickCode("WEBPAGE_CONTACT").subscribe((res: any) => {
 
-            if (res.status =="success") {
-            this.AdminContact = res.data[0].CodeName;
+            if (res.status == "success") {
+                this.AdminContact = res.data[0].CodeName;
             }
             else
-            this.errorMessage=res.message;
+                this.errorMessage = res.message;
 
         })
     }
 
     onBack() {
-        if (this.User_Group == "Admin")
+        if (this.User_Group.toUpperCase() == "ADMIN" || this.User_Group.toUpperCase() == "SUPERADMIN")
             this.router.navigate(['/AdminDashboard']);
         else
             this.router.navigate(['/ClientDashboard']);
@@ -348,15 +342,15 @@ export class CandidateComponent {
         this.UserForm.controls['Id'].enable();
         this.loginService.LogNominate(this.UserForm.value.Id, this.User_ID).subscribe((res: any) => {
             //this.ItemsArray = res;
-            if (res.status =="success") {
-            this.SuccessMassage = res.message;
-            this.UserForm.controls['Id'].disable();
+            if (res.status == "success") {
+                this.SuccessMassage = res.message;
+                this.UserForm.controls['Id'].disable();
             }
             else
-            this.errorMessage=res.message;
+                this.errorMessage = res.message;
 
         })
-       
+
     }
 
     onEditClick(event, index: number) {
@@ -379,17 +373,15 @@ export class CandidateComponent {
                 ContactNo: this.ItemsArray[index].ContactNo,
                 Status: this.ItemsArray[index].Status == "Active" ? "A" : "I",
                 UserType: this.ItemsArray[index].UserType,
-                NominateInd : this.ItemsArray[index].NominateInd
+                NominateInd: this.ItemsArray[index].NominateInd
             });
 
             this.UserForm.controls['Id'].disable();
-            if (this.ItemsArray[index].NominateInd =="Y")
-            {
-                this.bNominate = this.ItemsArray[index].Status == "Active"?false:true;
+            if (this.ItemsArray[index].NominateInd == "Y") {
+                this.bNominate = this.ItemsArray[index].Status == "Active" ? false : true;
             }
-            else
-            {
-                this.bNominate = true;    
+            else {
+                this.bNominate = true;
             }
 
             this.PageTitle = "Update Employee";
@@ -403,11 +395,12 @@ export class CandidateComponent {
         this.PageTitle = "New Employee";
         this.SuccessMassage = ""
         this.errorMessage = ""
-        this.mode="New";
+        this.mode = "New";
+        this.submitted = false;
         this.ItemsArray[index].inedit = false;
         this.UserForm.patchValue({
             Status: "A",
-          });
+        });
         this.UserForm.controls['Id'].enable();
     }
 

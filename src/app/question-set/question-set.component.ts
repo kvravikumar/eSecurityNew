@@ -73,7 +73,7 @@ export class QuestionSetComponent {
     };
 
     this.mode = "New";
-    this.SeqCount=false;
+    this.SeqCount=true;
     this.User_ID = sessionStorage.getItem("User_ID");
 
     this.UserForm = new FormGroup({
@@ -151,7 +151,7 @@ export class QuestionSetComponent {
           // this.UserForm.reset();
           // this.getUser();
           this.mode = "New";
-          this.SeqCount=false;
+          this.SeqCount=true;
           this.router.navigate(['/newQuestion'], { queryParams: { SetId: result.data } });
         }
         else {
@@ -177,7 +177,7 @@ export class QuestionSetComponent {
           // this.errorMessage = "";
           //this.SuccessMassage = '';
           this.mode = "New";
-          this.SeqCount=false;
+          this.SeqCount=true;
         }
         else {
           this.SuccessMassage = '';
@@ -256,7 +256,7 @@ export class QuestionSetComponent {
           //    this.SuccessMassage = '';
           this.getQuestionSet(null);
           this.mode = "New";
-          this.SeqCount=false;
+          this.SeqCount=true;
         }
         else {
           this.SuccessMassage = '';
@@ -280,7 +280,7 @@ export class QuestionSetComponent {
       this.errorMessage = "Page already in edit mode.";
     else {
       this.mode = "edit";
-      this.SeqCount=true;
+      this.SeqCount=false;
       this.ItemsArray[index].inedit = true;
       this.UserForm.patchValue({
         SetID: this.ItemsArray[index].SetID,
@@ -303,7 +303,7 @@ export class QuestionSetComponent {
     this.errorMessage = ""
     this.ItemsArray[index].inedit = false;
     this.mode = "New";
-    this.SeqCount=false;
+    this.SeqCount=true;
     this.UserForm.patchValue({
       Status: "A",
     });
