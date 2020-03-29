@@ -60,7 +60,7 @@ export class CandidateComponent {
         title: 'Employee Report :',
         useBom: true,
         noDownload: false,
-        headers: ["Employee ID", "First Name", "Last Name", "Password", "User Group", "Email", "Contact No", "Department", "Status", "Created By", "Created Date", "Modify By", "Modifiy Date"]
+        headers: ["Employee ID", "First Name", "Last Name", "Password", "User Group", "Email", "Contact No", "Department", "Status", "Test Attend Ind","Test Status","Created By", "Created Date", "Modify By", "Modifiy Date"]
     };
     get f() { return this.UserForm.controls; }
     ngOnInit() {

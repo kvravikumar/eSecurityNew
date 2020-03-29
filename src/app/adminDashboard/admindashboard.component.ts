@@ -52,7 +52,7 @@ export class AdminDashboardComponent implements OnInit {
         title: 'Employee Report :',
         useBom: true,
         noDownload: false,
-        headers: ["ID", "First Name", "Last Name", "Password", "User Group", "User Email", "Contact No", "Department", "Status", "Created By", "Created Date", "Modify By", "Modify Date"]
+        headers: ["ID", "First Name", "Last Name", "Password", "User Group", "User Email", "Contact No", "Department", "Status", "Test Attend Ind","Test Status","Created By", "Created Date", "Modify By", "Modify Date"]
     };
 
     csvQuestionSetOptions = {

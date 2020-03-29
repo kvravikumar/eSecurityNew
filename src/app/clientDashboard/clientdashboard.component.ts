@@ -120,12 +120,12 @@ export class ClientDashboardComponent implements OnInit {
 
         });
 
-        this.testStatus = (this.clientTest[this.clientTest.length - 1].TestResult == "Fail") ? false : true;
+        // this.testStatus = (this.clientTest[this.clientTest.length - 1].TestResult == "Fail") ? false : true;
 
-        if (!this.testStatus )
-          this.testStatus = true;
-        else
-          this.testStatus = false;
+        // if (!this.testStatus )
+        //   this.testStatus = true;
+        // else
+        //   this.testStatus = false;
 
       }
       else
