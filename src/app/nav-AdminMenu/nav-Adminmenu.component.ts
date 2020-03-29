@@ -50,9 +50,9 @@ export class NavAdminMenuComponent {
             this.logout();
         else {
             // this.getUser();
-            if (this.LoginService.currentUserValue.UserGroup == "Admin")
+            if (this.LoginService.currentUserValue.UserGroup.toUpperCase() == "ADMIN" || this.LoginService.currentUserValue.UserGroup.toUpperCase() == "SUPERADMIN")
                 this.userTypeAdmin = true;
-            else if (this.LoginService.currentUserValue.UserGroup == "Client")
+            else if (this.LoginService.currentUserValue.UserGroup.toUpperCase() == "CLIENT")
                 this.userTypeClient = true
         }
 
@@ -60,7 +60,7 @@ export class NavAdminMenuComponent {
 
     OnHome() {
 
-        if (this.UserGroup == "Admin")
+        if (this.UserGroup.toUpperCase() == "ADMIN" || this.UserGroup.toUpperCase() == "SUPERADMIN")
             this.router.navigate(['/AdminDashboard']);
         else
             this.router.navigate(['/ClientDashboard']);

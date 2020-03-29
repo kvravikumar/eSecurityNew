@@ -62,9 +62,9 @@ export class LoginComponent {
 
     redirectUrl(UserGroup: string) {
 
-        if (UserGroup == "Admin")
+        if (UserGroup.toUpperCase() == "ADMIN" || UserGroup.toUpperCase() == "SUPERADMIN" )
             this.router.navigate(['/AdminDashboard']);
-        if (UserGroup == "Client")
+        else if (UserGroup.toUpperCase() == "CLIENT")
             this.router.navigate(['/ClientDashboard']);
     }
 }
