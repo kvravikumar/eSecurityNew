@@ -18,7 +18,7 @@
               <div class="row">
                 <div class="form-group col-md-2">
                   <label for="TestDateFrom">Test Date From <span>*</span> </label>
-                  <input type="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.TestDateFrom.errors }" 
+                  <input type="date" class="form-control" [readonly]="selSummaryReport" [ngClass]="{ 'is-invalid': submitted && f.TestDateFrom.errors }" 
                     formControlName="TestDateFrom">
                   <div *ngIf="submitted && f.TestDateFrom.errors" class="invalid-feedback">
                     <div *ngIf="f.TestDateFrom.errors.required" style="color:red">Test Date From is required</div>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group col-md-2">
                   <label for="TestDateTo">Test Date To <span>*</span></label>
-                  <input type="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.TestDateTo.errors }"
+                  <input type="date" class="form-control" [readonly]="selSummaryReport" [ngClass]="{ 'is-invalid': submitted && f.TestDateTo.errors }"
                     formControlName="TestDateTo">
                   <div *ngIf="submitted && f.TestDateTo.errors" class="invalid-feedback">
                     <div *ngIf="f.TestDateTo.errors.required" style="color:red">Test Date To is required</div>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="form-group col-md-2">
                   <label for="SummaryReport">Summary Report</label>
-                  <select id="SummaryReport" formControlName="SummaryReport" class="form-control" >
+                  <select id="SummaryReport" formControlName="SummaryReport" class="form-control" (change)="onSummaryReport()" >
                     <!-- <option value="">Select TestResult.. </option> -->
                     <option value="N">No</option>
                     <option value="Y">Yes</option>

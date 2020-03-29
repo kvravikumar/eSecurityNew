@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group col-md-2">
                   <label for="SeqNo">Seq No</label>
-                  <input type="text" class="form-control" disabled="SeqCount"  id="SeqNo" [ngClass]="{ 'is-invalid': submitted && f.SeqNo.errors }" formControlName="SeqNo" value="{{UserForm.SeqNo}}"
+                  <input type="text" class="form-control"  [readonly]="SeqCount"  id="SeqNo" [ngClass]="{ 'is-invalid': submitted && f.SeqNo.errors }" formControlName="SeqNo" value="{{UserForm.SeqNo}}"
                     placeholder="SeqNo">
                     <div *ngIf="submitted && f.SeqNo.errors" class="invalid-feedback">
                       <div *ngIf="f.SeqNo.errors.required" style="color:red">SeqNo is required</div>

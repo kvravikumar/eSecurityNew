@@ -171,7 +171,7 @@ export class QuestionSetComponent {
           this.SuccessMassage = result.message;
           this.errorMessage = "";
           this.UserForm.reset();
-          this.UserForm.patchValue({ Status: "A" });
+          this.UserForm.patchValue({ Status: "A", SeqNo: "0" });
           this.QuestionSetSearchForm.reset();
           this.PageTitle = "New Question Set";
           // this.errorMessage = "";
@@ -306,6 +306,7 @@ export class QuestionSetComponent {
     this.SeqCount=true;
     this.UserForm.patchValue({
       Status: "A",
+      SeqNo: "0"
     });
   }
 

@@ -26,6 +26,7 @@ export class ReportComponent implements OnInit {
   UserSectionArray = [];
   ItemsArrayExcel = [];
   ChkSummaryReport=false;
+  selSummaryReport:boolean=false;
   public TestResultList = [{ name: 'All', value: 'A' }, { name: 'Pass', value: 'P' }, { name: 'Fail', value: 'F' }];
   constructor(private datePipe: DatePipe, private testService: TestService, private loginService: LoginService, private datepie: DatePipe, private router: Router) {
     this.PageTitle = "Test Report Search Criteria";
@@ -91,6 +92,10 @@ export class ReportComponent implements OnInit {
     this.GetTestReport();
   }
 
+  onSummaryReport()
+  {
+    this.selSummaryReport=this.UserForm.value.SummaryReport=="Y";
+  }
   downloadCSV() {
     this.ItemsArrayExcel = this.ItemsArray;
     this.ItemsArrayExcel.forEach(item => delete item.TestID);
