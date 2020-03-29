@@ -59,6 +59,7 @@ export class ReportComponent implements OnInit {
       EmployeeName: new FormControl(''),
       RetestDateFrom: new FormControl(''),
       RetestDateTo: new FormControl(''),
+      ReportInd: new FormControl(''),
 
     });
 
@@ -68,7 +69,7 @@ export class ReportComponent implements OnInit {
     });
 
     this.getUserSetion();
-    this.getUser();
+    this.GetTestReport();
   }
 
   onBack() {
@@ -86,7 +87,7 @@ export class ReportComponent implements OnInit {
 
   onFormSubmit() {
     this.submitted = true;
-    this.getUser();
+    this.GetTestReport();
   }
 
   downloadCSV() {
@@ -111,7 +112,7 @@ export class ReportComponent implements OnInit {
     new AngularCsv(newData, "Test Summary Report", this.csvOptions);
   }
 
-  getUser() {
+  GetTestReport() {
     this.testService.GetTestReport(this.UserForm.value).subscribe((result: any) => {
 
       if (result.status == "success") {

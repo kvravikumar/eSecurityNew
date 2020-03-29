@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   //baseUrl: 'http://www.pearltechservices.com/SRQuizApi/'
-  baseUrl:'http://www.pearltechservices.com/SRQuizApiNew/',
+ // baseUrl:'http://www.pearltechservices.com/SRQuizApiNew/',
+  baseUrl: 'http://www2.stlogs.com/eSecurityApi/',
   headerAuthorization:'test:test123'
 
 };

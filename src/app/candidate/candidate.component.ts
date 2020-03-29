@@ -44,7 +44,7 @@ export class CandidateComponent {
     bNominate: boolean = false;
     
     public CandidateStatus = [{ name: 'Active', value: 'A' }, { name: 'In-Active', value: 'I' }];
-    public CandidateUserGroup = [{ name: 'Admin' }, { name: 'Client' }];
+    public CandidateUserGroup = [{ name: 'SuperAdmin' },{ name: 'Admin' }, { name: 'Client' }];
 
     constructor(private datePipe: DatePipe ,private router: Router, private loginService: LoginService,private fb: FormBuilder) {
         this.getCandidateStatus();

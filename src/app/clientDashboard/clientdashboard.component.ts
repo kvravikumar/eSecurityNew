@@ -27,6 +27,8 @@ export class ClientDashboardComponent implements OnInit {
   testStatus: boolean = false;
   ItemsArray = [];
   AdminContact: string;
+  date: Date = new Date();
+  ReTestDate: Date;
   constructor(
     private datePipe: DatePipe,
     private router: Router, private LoginService: LoginService, private TestService: TestService) { }
@@ -49,11 +51,11 @@ export class ClientDashboardComponent implements OnInit {
 
   getAdminContact() {
     this.LoginService.GetQuickCode("WEBPAGE_CONTACT").subscribe((res: any) => {
-      if (res.status =="success") {
-      this.AdminContact = res.data[0].CodeName;
+      if (res.status == "success") {
+        this.AdminContact = res.data[0].CodeName;
       }
       else
-      this.errorMessage = res.message;
+        this.errorMessage = res.message;
 
     })
   }
@@ -88,37 +90,46 @@ export class ClientDashboardComponent implements OnInit {
   getTest() {
     this.TestService.GetTestByUser(this.User_ID).subscribe((result: any) => {
 
-      if (result.status =="success") {
-      this.clientTest = result.data;
-      // const table: any = $('table');
-      // this.datatable = table.DataTable();
-      // this.dtTrigger.next();
-      this.clientTest.forEach(element => {
+      if (result.status == "success") {
+        this.clientTest = result.data;
+        // const table: any = $('table');
+        // this.datatable = table.DataTable();
+        // this.dtTrigger.next();
+        this.clientTest.forEach(element => {
 
-        if (element.TestResult != null && element.TestResult == "F")
-          element.TestResult = "Fail"
-        else if (element.TestResult != null && element.TestResult == "P")
-          element.TestResult = "Pass"
+          if (element.TestResult != null && element.TestResult == "F")
+            element.TestResult = "Fail"
+          else if (element.TestResult != null && element.TestResult == "P")
+            element.TestResult = "Pass"
 
-        if (element.ReTestReq != null && element.ReTestReq == "Y")
-          element.ReTestReq = "Yes"
-        else if (element.ReTestReq == null || element.ReTestReq == "N" || element.ReTestReq == "")
-          element.ReTestReq = "No"
+          if (element.ReTestReq != null && element.ReTestReq == "Y")
+            element.ReTestReq = "Yes"
+          else if (element.ReTestReq == null || element.ReTestReq == "N" || element.ReTestReq == "")
+            element.ReTestReq = "No"
 
-        if (element.TestDate != null)
-          element.TestDate =  this.datePipe.transform(element.TestDate , 'dd-MMM-yyyy');
-        
-        if (element.ReTestDate != null)
-          element.ReTestDate =  this.datePipe.transform(element.ReTestDate , 'dd-MMM-yyyy');
-     
+          if (element.TestDate != null)
+            element.TestDate = this.datePipe.transform(element.TestDate, 'dd-MMM-yyyy');
 
-      });
-      this.testStatus = (this.clientTest[this.clientTest.length - 1].TestResult == "Fail") ? false : true;
-    }
-    else
-    this.errorMessage=result.message
+          if (element.ReTestDate != null)
+            element.ReTestDate = this.datePipe.transform(element.ReTestDate, 'dd-MMM-yyyy');
+
+          this.ReTestDate = new Date(element.ReTestDate);
+
+
+        });
+
+        this.testStatus = (this.clientTest[this.clientTest.length - 1].TestResult == "Fail") ? false : true;
+
+        if (!this.testStatus && this.ReTestDate >= this.date)
+          this.testStatus = true;
+        else
+          this.testStatus = false;
+
+      }
+      else
+        this.errorMessage = result.message
     })
-  
+
   }
   onNewTest() {
 
@@ -130,11 +141,11 @@ export class ClientDashboardComponent implements OnInit {
   getTrainingMaterial() {
     this.LoginService.GetQuickCode("TrainingMaterial").subscribe((result: any) => {
 
-      if (result.status =="success") {
-      this.TrainingMaterial = result.data[0].CodeName;
+      if (result.status == "success") {
+        this.TrainingMaterial = result.data[0].CodeName;
       }
       else
-      this.errorMessage=result.message;
+        this.errorMessage = result.message;
 
     })
   }

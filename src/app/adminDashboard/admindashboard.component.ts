@@ -31,6 +31,9 @@ export class AdminDashboardComponent implements OnInit {
     ItemsArray = [];
     ItemsArrayExcel = [];
 
+    User_Group :string;
+
+
     constructor(
         private datePipe: DatePipe ,
         private router: Router, 
@@ -87,6 +90,8 @@ export class AdminDashboardComponent implements OnInit {
 
         this.ItemsArray = [];
         this.ItemsArrayExcel = [];
+        this.User_Group = sessionStorage.getItem("UserGroup").toUpperCase();
+
         this.GetTotalCandidates();
         this.GetTotalQuestions();
         this.GetTotalQucikCode();

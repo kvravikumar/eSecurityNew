@@ -20,6 +20,7 @@ export class QuestionSetComponent {
   dtOptions: DataTables.Settings = {};
 
   submitted = false;
+  SeqCount:boolean;
 
   PageTitle: string;
   data = false;
@@ -72,12 +73,13 @@ export class QuestionSetComponent {
     };
 
     this.mode = "New";
+    this.SeqCount=false;
     this.User_ID = sessionStorage.getItem("User_ID");
 
     this.UserForm = new FormGroup({
       SetID: new FormControl(),
       SetCategory: new FormControl('', Validators.required),
-      SeqNo: new FormControl('', Validators.required),
+      SeqNo: new FormControl('0', Validators.required),
       Status: new FormControl('A', Validators.required),
       CreatedBy: new FormControl(this.User_ID),
       CreatedDate: new FormControl(),
@@ -149,6 +151,7 @@ export class QuestionSetComponent {
           // this.UserForm.reset();
           // this.getUser();
           this.mode = "New";
+          this.SeqCount=false;
           this.router.navigate(['/newQuestion'], { queryParams: { SetId: result.data } });
         }
         else {
@@ -174,6 +177,7 @@ export class QuestionSetComponent {
           // this.errorMessage = "";
           //this.SuccessMassage = '';
           this.mode = "New";
+          this.SeqCount=false;
         }
         else {
           this.SuccessMassage = '';
@@ -252,6 +256,7 @@ export class QuestionSetComponent {
           //    this.SuccessMassage = '';
           this.getQuestionSet(null);
           this.mode = "New";
+          this.SeqCount=false;
         }
         else {
           this.SuccessMassage = '';
@@ -275,6 +280,7 @@ export class QuestionSetComponent {
       this.errorMessage = "Page already in edit mode.";
     else {
       this.mode = "edit";
+      this.SeqCount=true;
       this.ItemsArray[index].inedit = true;
       this.UserForm.patchValue({
         SetID: this.ItemsArray[index].SetID,
@@ -297,7 +303,7 @@ export class QuestionSetComponent {
     this.errorMessage = ""
     this.ItemsArray[index].inedit = false;
     this.mode = "New";
-
+    this.SeqCount=false;
     this.UserForm.patchValue({
       Status: "A",
     });

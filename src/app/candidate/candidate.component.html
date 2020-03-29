@@ -63,6 +63,10 @@
                     <div *ngIf="f.UserEmail.errors.required" style="color:red">Email is required
                     </div>
                   </div>
+                  <div *ngIf="submitted && f.UserEmail.errors" class="invalid-feedback">
+                    <div *ngIf="f.UserEmail.errors.email" style="color:red">Invalid Email
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group col-md-2">
                   <label for="UserGroup">User Group</label>
@@ -101,6 +105,10 @@
                     placeholder="Contact No">
                   <div *ngIf="submitted && f.ContactNo.errors" class="invalid-feedback">
                     <div *ngIf="f.ContactNo.errors.required" style="color:red">Contact No is required
+                    </div>
+                  </div>
+                  <div *ngIf="submitted && f.ContactNo.errors" class="invalid-feedback">
+                    <div *ngIf="f.ContactNo.errors.max" style="color:red">Contact max length is 75
                     </div>
                   </div>
                 </div>
