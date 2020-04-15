@@ -45,6 +45,20 @@ export class ReportComponent implements OnInit {
     headers: ["Employee ID", "Employee Name", "Email", "Contact No", "Department", "Test Date", "Test Result", "Retest Date"]
   };
 
+  
+  csvOptionSummary = {
+    fieldSeparator: ',',
+    quoteStrings: '"',
+    decimalseparator: '.',
+    showLabels: true,
+    showTitle: true,
+    title: 'Test Summary Report :',
+    useBom: true,
+    noDownload: false,
+    headers: ["Department", "Employee Id", "Employee Name", "Email", "Contact No", "No Of Attempt", "Test Result"]
+  };
+
+
   ngOnInit() {
 
     this.today = new Date().toISOString().split('T')[0];
@@ -95,6 +109,20 @@ export class ReportComponent implements OnInit {
   onSummaryReport()
   {
     this.selSummaryReport=this.UserForm.value.SummaryReport=="Y";
+    if (this.UserForm.value.SummaryReport=="Y")
+    {
+      this.UserForm.patchValue({
+        TestDateFrom: "00/00/0000",
+        TestDateTo: "00/00/0000"
+      });
+    }
+    else
+    {
+      this.UserForm.patchValue({
+        TestDateFrom: this.today,
+        TestDateTo: this.today
+      });
+    }
   }
   downloadCSV() {
     this.ItemsArrayExcel = this.ItemsArray;
@@ -115,7 +143,12 @@ export class ReportComponent implements OnInit {
         : value // return everything else unchanged
     ));
 
+    if(this.UserForm.value.SummaryReport=="Y")
+      new AngularCsv(newData, "Test Summary Report", this.csvOptionSummary);
+    else
     new AngularCsv(newData, "Test Summary Report", this.csvOptions);
+
+    
   }
 
   GetTestReport() {
