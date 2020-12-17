@@ -27,7 +27,7 @@
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^4.4.1",
     "core-js": "^2.6.11",
-    "datatables.net": "^1.10.20",
+    "datatables.net": "^1.10.22",
     "datatables.net-dt": "^1.10.20",
     "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
