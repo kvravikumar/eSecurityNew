@@ -33,7 +33,35 @@ export class LoginComponent {
     ngOnInit() {
         // sessionStorage.removeItem('UserName');
         sessionStorage.clear();
+        this.GetWindowsAD();
     }
+    GetWindowsAD()
+    {
+        this.LoginService.GetWindowsAD().subscribe(
+            result => {
+
+                if (result.status == "success") {
+                   
+
+                        sessionStorage.setItem("User_ID", result.data[0].Id);
+                        sessionStorage.setItem("User_Name", result.data[0].FirstName.concat(result.data[0].LastName == null ? "" : " ".concat(result.data[0].LastName)));
+                        sessionStorage.setItem("UserGroup", result.data[0].UserGroup);
+                        this.redirectUrl(result.data[0].UserGroup)
+                    
+
+                }
+                else {
+                    //  this.errorMessage = "Login Failed: invalid user id or password";
+                   // this.errorMessage = result.message;
+                }
+
+            },
+            error => {
+                this.errorMessage = error.message;
+            });
+        }
+
+    
     login() {
         //  debugger;
         this.LoginService.Login(this.model).subscribe(

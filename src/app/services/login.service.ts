@@ -118,4 +118,9 @@ export class LoginService {
         if (this.currentUserValue == null)
             this.router.navigate(['/login']);
     }
+    GetWindowsAD() {
+        // debugger;
+        const httpOptions = { headers: this.headerSettings };
+        return this.http.get<any>(this.Url + 'GetWindowsAD/',  httpOptions);
+    }
 }
