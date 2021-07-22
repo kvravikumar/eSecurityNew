@@ -12,7 +12,7 @@
           <h1 class="h3 mb-3 font-weight-normal" style="text-align: center;font-weight: bold;"> Welcome</h1>
           <div class="row">
             <input type="text" name="Id" [(ngModel)]="model.Id" class="form-control " formControlName="Id"
-              placeholder="Employee ID"><br />
+              placeholder="Windows ID"><br />
             <input type="password" name="Passward" [(ngModel)]="model.Password" formControlName="Passward"
               class="form-control" placeholder="Password">
 
@@ -27,8 +27,8 @@
             <div
               *ngIf="angForm.controls['Id'].invalid && (angForm.controls['Id'].dirty || angForm.controls['Id'].touched)"
               class="alert alert-danger">
-              <div *ngIf="angForm.controls['Id'].errors.required">Employee Id is empty.</div>
-              <div *ngIf="angForm.controls['Id'].errors.minlength">Employee Id atleast minimum 5 character.</div>
+              <div *ngIf="angForm.controls['Id'].errors.required">Windows Id is empty.</div>
+              <div *ngIf="angForm.controls['Id'].errors.minlength">Windows Id atleast minimum 5 character.</div>
             </div>
 
             <p style="color:#E92626;font-size:15px;font-weight:normal" Class="success" align="left">
